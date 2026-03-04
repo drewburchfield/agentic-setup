@@ -1,10 +1,8 @@
-[![Agentic CLI Setup](https://ghrb.waren.build/banner?header=Agentic+CLI+Setup&subheader=Four+AI+harnesses.+One+unified+toolkit.&bg=1A1A1A-4A4A4A&color=FFFFFF&headerfont=Inter&subheaderfont=Inter&support=false)](https://github.com/drewburchfield/agentic-setup)
+[![Agentic Setup](https://ghrb.waren.build/banner?header=%21%5Brobot%5D+Agentic+Setup&subheader=A+reproducible+system+for+building+with+AI+agents&bg=1A1A1A-4A4A4A&color=FFFFFF&headerfont=Inter&subheaderfont=Inter&support=false)](https://github.com/drewburchfield/agentic-setup)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/drewburchfield/agentic-setup)
 
-Two years of daily work with AI coding agents, distilled into a reproducible system. Four harnesses share one skill library, three models review every hard problem in parallel, security gates run at every commit and every PR, and a personal knowledge vault with semantic search is wired into every session.
-
-This repo is the full inventory and the portable source of truth for reproducing it on a new machine.
+Two years of daily work with AI coding agents, distilled into a reproducible system. This repo is the full inventory: what's installed, how the pieces connect, and the patterns that work. It also serves as the portable source of truth for reproducing the setup on a new machine.
 
 ## The Setup
 
