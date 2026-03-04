@@ -1,4 +1,4 @@
-[![Agentic Setup](https://ghrb.waren.build/banner?header=%21%5Brobot%5D+Agentic+Setup&subheader=A+reproducible+system+for+building+with+AI+agents&bg=1A1A1A-4A4A4A&color=FFFFFF&headerfont=Inter&subheaderfont=Inter&support=false)](https://github.com/drewburchfield/agentic-setup)
+![Agentic Setup](https://ghrb.waren.build/banner?header=![iterm2]+Agentic+Setup&subheader=A+reproducible+system+for+building+with+AI+agents&bg=1a1a2e&color=e0e0e0&support=true)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/drewburchfield/agentic-setup)
 
