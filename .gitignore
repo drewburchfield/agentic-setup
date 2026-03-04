@@ -1,0 +1,11 @@
+.DS_Store
+
+# Per-agent skill directories created by `npx skills add`
+.agent/
+.agents/
+.claude/
+.goose/
+.kiro/
+.windsurf/
+skills/
+skills-lock.json
