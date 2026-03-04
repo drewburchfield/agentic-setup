@@ -38,8 +38,8 @@
 | **Writing & Style** | elements-of-style | superpowers-marketplace | [obra/elements-of-style](https://github.com/obra/elements-of-style) | Writing guidance based on Strunk's The Elements of Style |
 | | learning-output-style | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/learning-output-style) | Interactive learning output style |
 | | explanatory-output-style | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/explanatory-output-style) | Explanatory output style mode |
-| **Integrations** | context7 | claude-plugins-official | [Context7](https://context7.com/) | Up-to-date library documentation |
-| | linear | claude-plugins-official | [Linear](https://linear.app/) | Issue/project management integration |
+| **Integrations** | context7 | claude-plugins-official | [upstash/context7-mcp](https://github.com/upstash/context7-mcp) | Up-to-date library documentation |
+| | linear | claude-plugins-official | [linear/linear-mcp](https://github.com/linear/linear-mcp-server) | Issue/project management integration |
 | **Plugin & Skill Dev** | plugin-dev | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev) | Plugin development: skills, hooks, agents, commands, MCP |
 | | agent-sdk-dev | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/agent-sdk-dev) | Agent SDK application development |
 | | superpowers-developing-for-claude-code | superpowers-marketplace | [obra/superpowers-developing-for-claude-code](https://github.com/obra/superpowers-developing-for-claude-code) | Plugin development workflows and Claude Code documentation |

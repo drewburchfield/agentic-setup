@@ -76,7 +76,7 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | webapp-testing | Test local web apps using Playwright with screenshots and logs. |
 | xlsx | Spreadsheet creation, editing, analysis, formulas, visualization. |
 
-### From [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) (10 skills across 7 plugins)
+### From [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) (10 skills across 4 plugins)
 
 | Skill | Plugin | Description |
 |-------|--------|-------------|
@@ -112,6 +112,12 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 |-------|-------------|
 | software-security | Secure coding practices integrated with Project CodeGuard. |
 
+### From [helpscout-mcp](https://github.com/drewburchfield/help-scout-mcp-server) (personal marketplace)
+
+| Skill | Plugin | Description |
+|-------|--------|-------------|
+| helpscout-navigator | [helpscout-navigator](https://github.com/drewburchfield/helpscout-navigator) | HelpScout tool selection, sequencing, and common mistake prevention. |
+
 ### From [not-my-job](https://github.com/drewburchfield/not-my-job) (personal marketplace)
 
 | Skill | Plugin | Description |
@@ -120,7 +126,6 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | braintrust | [braintrust](https://github.com/drewburchfield/braintrust) | Orchestrate Gemini, Codex, Claude Code for second opinions and parallel research. |
 | subscription-cleanse | [subscription-cleanse](https://github.com/drewburchfield/subscription-cleanse) | Subscription audit combining bank CSV analysis and email recon. |
 | cre-property-research | [cre-property-research](https://github.com/drewburchfield/cre-property-research) | Commercial real estate property research and market analysis. |
-| helpscout-navigator | [help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | HelpScout tool selection, sequencing, and common mistake prevention. |
 | linkedin-message-triage | [linkedin-message-triage](https://github.com/drewburchfield/linkedin-message-triage) | Review LinkedIn messages, filter solicitations, draft replies. |
 | markdown-to-confluence | [markdown-to-confluence](https://github.com/drewburchfield/markdown-to-confluence) | Convert Markdown to Confluence Storage Format (XHTML-based XML). |
 | happenstance | [happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Research people and search professional network via Happenstance API. |

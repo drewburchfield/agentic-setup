@@ -53,7 +53,7 @@ Layered checks at different points:
 Work produces insights that feed back into the system:
 
 - **Obsidian Knowledge Vault**: Zettelkasten for atomic, linked notes. CORE framework (Collect, Organize, Reflect, Express) for the full lifecycle.
-- **obsidian-graph-mcp**: Semantic search and graph traversal over the vault via Voyage Context 3 embeddings, accessible from all harnesses.
+- **obsidian-graph-mcp**: Semantic search and graph traversal over the vault via Voyage Context-3 embeddings, accessible from all harnesses.
 
 ### Skill Distribution
 

@@ -77,7 +77,7 @@ Provided automatically by installed plugins.
 
 | Server | Type | Source |
 |--------|------|--------|
-| MCP_DOCKER | local | Docker MCP Toolkit |
+| MCP_DOCKER | stdio | Docker MCP Toolkit |
 | zai-vision | local | 3rd party: [Z.AI](https://docs.z.ai/devpack/tool/opencode) via `npx @z_ai/mcp-server` |
 | zai-search | remote | 3rd party: [Z.AI](https://docs.z.ai/devpack/tool/opencode) (`https://api.z.ai/api/mcp/web_search_prime/mcp`) |
 | zai-reader | remote | 3rd party: [Z.AI](https://docs.z.ai/devpack/tool/opencode) (`https://api.z.ai/api/mcp/web_reader/mcp`) |
@@ -92,7 +92,7 @@ Provided automatically by installed plugins.
 | google-search | Google Programmable Search Engine | [adenot/mcp-google-search](https://github.com/adenot/mcp-google-search) |
 | nanobanana | AI image generation and editing | [zhongweili/nanobanana-mcp-server](https://github.com/zhongweili/nanobanana-mcp-server) |
 | slack-mcp | Slack channel history, search, thread replies | [korotovsky/slack-mcp-server](https://github.com/korotovsky/slack-mcp-server) |
-| [obsidian-graph-mcp](https://github.com/drewburchfield/obsidian-graph-mcp) | Semantic knowledge graph companion to the [Knowledge Vault](https://github.com/drewburchfield/knowledge-vault). Vector embeddings via Voyage Context 3 with PostgreSQL+pgvector for graph navigation and semantic search over the vault. | Custom |
+| [obsidian-graph-mcp](https://github.com/drewburchfield/obsidian-graph-mcp) | Semantic knowledge graph companion to the [Knowledge Vault](https://github.com/drewburchfield/knowledge-vault). Vector embeddings via Voyage Context-3 with PostgreSQL+pgvector for graph navigation and semantic search over the vault. | Custom |
 | atlassian | Jira and Confluence. Supports multiple workspace instances. | [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian) |
 
 ## Summary by Harness
