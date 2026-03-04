@@ -8,7 +8,7 @@ Two years of daily work with AI coding agents, distilled into a reproducible sys
 
 | Harness | Role | MCP Servers |
 |---------|------|-------------|
-| [**Claude Code**](https://docs.anthropic.com/en/docs/claude-code) | Primary. Plugins, skills, hooks, commands all live here. | 15 servers: [Exa](https://exa.ai), [Google-PSE](https://github.com/adenot/mcp-google-search), [Granola](https://granola.ai/), [HelpScout](https://github.com/drewburchfield/help-scout-mcp-server), [Slack](https://github.com/korotovsky/slack-mcp-server), [nanobanana](https://github.com/zhongweili/nanobanana-mcp-server), [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [ChatPRD](https://app.chatprd.ai), 5 [claude.ai connectors](https://claude.ai), 2 plugin MCPs |
+| [**Claude Code**](https://docs.anthropic.com/en/docs/claude-code) | Primary. Plugins, skills, hooks, commands all live here. | 10 servers: [Exa](https://exa.ai), [Google-PSE](https://github.com/adenot/mcp-google-search), [Granola](https://granola.ai/), [HelpScout](https://github.com/drewburchfield/help-scout-mcp-server), [Slack](https://github.com/korotovsky/slack-mcp-server), [nanobanana](https://github.com/zhongweili/nanobanana-mcp-server), [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [ChatPRD](https://app.chatprd.ai), 2 plugin MCPs |
 | [**Codex CLI**](https://github.com/openai/codex) | Secondary. Gets skills via symlink. | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [Playwright](https://playwright.dev/), [Pencil](https://pencil.li/), [Linear](https://linear.app/) |
 | [**Gemini CLI**](https://github.com/google-gemini/gemini-cli) | Tertiary. Gets skills via symlink. | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [Playwright](https://playwright.dev/) |
 | [**OpenCode**](https://opencode.ai/) | Fourth. Gets skills via symlink. | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), 4 [Z.AI](https://docs.z.ai/devpack/tool/opencode) servers |
@@ -20,7 +20,7 @@ Two years of daily work with AI coding agents, distilled into a reproducible sys
 | 🏪 | **10** | [Plugin marketplaces](inventory/marketplaces.md) (Anthropic official, community, and personal) |
 | 🔌 | **65** | [Plugins](inventory/plugins.md) providing agents, hooks, LSP integrations, and document tools |
 | ⚡ | **77** | [Unique skills](inventory/skills.md) (10 personal + 67 from plugins), synced across all harnesses |
-| 🌐 | **15+** | [MCP servers](inventory/mcp-servers.md) configured per-harness, [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) shared across all four |
+| 🌐 | **10+** | [MCP servers](inventory/mcp-servers.md) configured per-harness, [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) shared across all four |
 | 🔧 | **30+** | [CLI tools](inventory/clis.md) for service integrations, browser automation, and development runtimes |
 | 🖥️ | **20+** | [Apps and infrastructure](inventory/apps.md) including Docker Desktop, Obsidian, Superwhisper, and supporting macOS apps |
 
@@ -54,7 +54,7 @@ Per-harness configuration, global instructions, hooks, and security settings.
 
 | Reference | What |
 |-----------|------|
-| [Browser tools comparison](references/browser-tools-comparison.md) | Command-by-command matrix: agent-browser (~110 commands) vs dev-browser (~79) vs Playwright MCP (~40) |
+| [Browser tools comparison](references/browser-tools-comparison.md) | Command-by-command matrix: agent-browser (~130) vs dev-browser (~79) vs Claude-in-Chrome (~39) vs Playwright MCP (~42) |
 
 ---
 

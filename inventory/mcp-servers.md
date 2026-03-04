@@ -1,6 +1,6 @@
 # MCP Servers Inventory
 
-15 MCP servers configured for Claude Code, plus additional servers on other harnesses. Google Workspace access (Gmail, Calendar, Drive, Docs, Sheets) is handled by the [gog CLI](https://github.com/drewburchfield/gogcli-safe) rather than MCP servers.
+10 MCP servers configured for Claude Code, plus additional servers on other harnesses. Google Workspace access (Gmail, Calendar, Drive, Docs, Sheets) is handled by the [gog CLI](https://github.com/drewburchfield/gogcli-safe) rather than MCP servers.
 
 ## Docker MCP Toolkit
 
@@ -13,9 +13,9 @@
 - **Sequential Thinking** - Structured reasoning
 - **Code Mode** - Code execution context
 
-## Claude Code (15 servers)
+## Claude Code (10 servers)
 
-Three sources (8 user, 5 claude.ai, 2 plugin): user-level config, claude.ai remote connectors, and built-in plugin MCPs.
+Two sources (8 user, 2 plugin): user-level config and built-in plugin MCPs.
 
 ### User MCPs (`~/.claude.json`)
 
@@ -29,18 +29,6 @@ Three sources (8 user, 5 claude.ai, 2 plugin): user-level config, claude.ai remo
 | nanobanana | stdio | 3rd party, Dockerized via [master_mcp](https://github.com/drewburchfield/master_mcp). Upstream: [zhongweili/nanobanana-mcp-server](https://github.com/zhongweili/nanobanana-mcp-server) | AI image generation and editing |
 | granola | HTTP (remote) | 3rd party: [granola.ai](https://granola.ai/) (`https://mcp.granola.ai/mcp`) | AI meeting notes: query, list, and get meeting transcripts |
 | slack | stdio | 3rd party, Dockerized via [master_mcp](https://github.com/drewburchfield/master_mcp). Upstream: [korotovsky/slack-mcp-server](https://github.com/korotovsky/slack-mcp-server) | Slack channel history, search, thread replies |
-
-### claude.ai Remote Connectors
-
-Managed through the claude.ai account, not local config files.
-
-| Server | Status | Upstream |
-|--------|--------|----------|
-| claude.ai HubSpot | needs auth | [HubSpot MCP](https://www.hubspot.com/) |
-| claude.ai Linear | connected | [Linear MCP](https://linear.app/) |
-| claude.ai Mermaid Chart | connected | [Mermaid Chart MCP](https://www.mermaidchart.com/) |
-| claude.ai Sentry | needs auth | [Sentry MCP](https://sentry.io/) |
-| claude.ai Zapier (Gmail and more) | needs auth | [Zapier MCP](https://zapier.com/) |
 
 ### Built-in Plugin MCPs
 
@@ -99,7 +87,7 @@ Provided automatically by installed plugins.
 
 | Harness | Total Servers | Unique to This Harness |
 |---------|--------------|----------------------|
-| Claude Code | 15 | ChatPRD, exa, Google-PSE, granola, helpscout, nanobanana, slack, MCP_DOCKER, 5 claude.ai connectors, 2 plugin MCPs |
+| Claude Code | 10 | ChatPRD, exa, Google-PSE, granola, helpscout, nanobanana, slack, MCP_DOCKER, 2 plugin MCPs |
 | Gemini CLI | 2 | - |
 | Codex CLI | 4 | pencil, linear |
 | OpenCode | 5 | zai-vision, zai-search, zai-reader, zai-zread |
