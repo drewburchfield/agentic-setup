@@ -1,6 +1,6 @@
 # Skills Inventory
 
-77 unique skills across personal and plugin sources.
+78 unique skills across personal and plugin sources.
 
 ## Personal Skills (10)
 
@@ -123,6 +123,7 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | Skill | Plugin | Description |
 |-------|--------|-------------|
 | 1password-management | [1password-management](https://github.com/drewburchfield/1password-management) | 1Password CLI (op) credential management with proper syntax and best practices. |
+| 1password-openclaw | [openclaw-1password](https://github.com/drewburchfield/openclaw-1password) | OpenClaw + 1Password SecretRef setup, diagnosis, repair, and version-aware adaptation. |
 | braintrust | [braintrust](https://github.com/drewburchfield/braintrust) | Orchestrate Gemini, Codex, Claude Code for second opinions and parallel research. |
 | subscription-cleanse | [subscription-cleanse](https://github.com/drewburchfield/subscription-cleanse) | Subscription audit combining bank CSV analysis and email recon. |
 | cre-property-research | [cre-property-research](https://github.com/drewburchfield/cre-property-research) | Commercial real estate property research and market analysis. |

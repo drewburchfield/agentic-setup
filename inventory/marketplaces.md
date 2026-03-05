@@ -11,7 +11,7 @@
 | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | sawyerhood | 1 |
 | helpscout-mcp | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | drewburchfield (personal) | 1 |
 | knowledge-work-plugins | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Anthropic | 15 |
-| not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield (personal) | 9 |
+| not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield (personal) | 10 |
 | project-codeguard | [project-codeguard/rules](https://github.com/project-codeguard/rules) | project-codeguard | 1 |
 | superpowers-marketplace | [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) | obra (Jesse Vincent) | 3 |
 

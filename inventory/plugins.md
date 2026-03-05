@@ -1,6 +1,6 @@
 # Plugins Inventory
 
-65 plugins across 10 marketplaces.
+66 plugins across 10 marketplaces.
 
 | Category | Plugin | Marketplace | Source | Description |
 |----------|--------|-------------|--------|-------------|
@@ -47,6 +47,7 @@
 | | skill-creator | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) | Skill creation and deployment |
 | | example-plugin | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/example-plugin) | Example/template plugin for plugin development |
 | **Personal Utilities** | 1password-management | not-my-job | [drewburchfield/1password-management](https://github.com/drewburchfield/1password-management) | 1Password CLI credential management |
+| | openclaw-1password | not-my-job | [drewburchfield/openclaw-1password](https://github.com/drewburchfield/openclaw-1password) | OpenClaw + 1Password SecretRef integration with setup automation |
 | | cre-property-research | not-my-job | [drewburchfield/cre-property-research](https://github.com/drewburchfield/cre-property-research) | Commercial real estate property research and market analysis |
 | | happenstance-navigator | not-my-job | [drewburchfield/happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Network intelligence: research people, search networks, compound workflows |
 | | helpscout-navigator | helpscout-mcp | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | HelpScout tool selection, sequencing, and common mistake prevention |
