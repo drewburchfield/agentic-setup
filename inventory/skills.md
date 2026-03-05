@@ -106,7 +106,7 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 |-------|-------------|
 | dev-browser | Browser automation with persistent page state, Chrome extension mode. |
 
-### From [codeguard-security](https://github.com/project-codeguard/rules) (project-codeguard)
+### From [codeguard-security](https://github.com/cosai-oasis/project-codeguard) (project-codeguard)
 
 | Skill | Description |
 |-------|-------------|

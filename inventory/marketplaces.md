@@ -12,7 +12,7 @@
 | helpscout-mcp | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | drewburchfield | 1 |
 | knowledge-work-plugins | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Anthropic | 15 |
 | not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield | 11 |
-| project-codeguard | [project-codeguard/rules](https://github.com/project-codeguard/rules) | project-codeguard | 1 |
+| project-codeguard | [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard) | cosai-oasis | 1 |
 | superpowers-marketplace | [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) | obra (Jesse Vincent) | 3 |
 
 ## Notes
