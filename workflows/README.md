@@ -59,6 +59,12 @@ Work produces insights that feed back into the system:
 
 Automatic, invisible. Plugins install skills into Claude Code. The sync script runs on every session start and symlinks everything to Codex, Gemini, and OpenCode. No manual steps needed.
 
+### Sandboxed Execution
+
+For situations where running Claude Code directly on your local machine isn't desirable. [Sprites](https://sprites.dev/) are hardware-isolated Linux environments with checkpoint/restore - you run Claude Code inside a Sprite instead of locally.
+
+Good for: exploratory or high-risk work, untrusted code, avoiding local environment pollution, or when you want a clean-slate environment you can roll back.
+
 ### Research
 
 Braintrust parallel research across all three models, plus:
