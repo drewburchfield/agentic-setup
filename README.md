@@ -34,7 +34,7 @@ Patterns for how the tools compose together. These are atomic building blocks, n
 | **Local Quality Gate** | Run the quality-gate skill with `--local` during development for early issue detection |
 | **PR Review Pipeline** | Full review combining agent reviews, [Devin](https://devin.ai/) Review, and [CodeRabbit](https://coderabbit.ai/) in parallel |
 | **Design & Prototyping** | Agentic CLI + frontend-design skill + [nanobanana](https://github.com/zhongweili/nanobanana-mcp-server), or external tools ([Stitch](https://stitch.withgoogle.com/), [v0](https://v0.dev/), [Lovable](https://lovable.dev/), [Paper](https://builtwithpaper.com/), [Pencil](https://pencil.li/)) |
-| **Security** | Layered: pre-commit credential scanning, codeguard-security plugin, full PR review pipeline |
+| **Security** | Layered: pre-commit credential scanning, codeguard-security plugin, full PR review pipeline. See [security baseline](workflows/security-baseline.md) |
 | **Knowledge Capture** | [Obsidian Knowledge Vault](https://github.com/drewburchfield/knowledge-vault) with Zettelkasten + CORE framework, semantic search via [obsidian-graph-mcp](https://github.com/drewburchfield/obsidian-graph-mcp) (Voyage Context-3 + pgvector) |
 | **Skill Distribution** | Automatic. Plugins install skills into Claude Code, [sync script](scripts/sync-skills.sh) symlinks to all other harnesses on every session start |
 

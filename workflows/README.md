@@ -41,12 +41,7 @@ Both approaches work for frontend and backend prototyping.
 
 ### Security
 
-Layered checks at different points:
-
-- **Every commit**: Global pre-commit hook scans for credential patterns, warns on `.env` files, runs `npm audit` on dependency changes.
-- **During development**: Local quality gate and codeguard-security plugin.
-- **Every PR**: Full PR review pipeline (quality-gate + Devin + CodeRabbit).
-- **Secrets management**: 1Password CLI and plugin for credential lookups, vault operations, and environment variable injection.
+Five tiers from behavior constraints to full environment isolation. See [security-baseline.md](security-baseline.md) for the full reference.
 
 ### Knowledge Capture
 
