@@ -35,9 +35,8 @@ Settings file: `~/.claude/settings.json`
 - **Linear:** `mcp__linear__list_*`, `mcp__linear__get_*`, `mcp__linear__search_*`
 - **Obsidian:** `mcp__obsidian__obsidian_get_*`, `mcp__obsidian__obsidian_list_*`, search tools
 - **HelpScout:** `mcp__helpscout__search*`, `mcp__helpscout__get*`, `mcp__helpscout__list*`
-- **HubSpot:** `mcp__hubspot__hubspot-get-*`, `mcp__hubspot__hubspot-list-*`, `mcp__hubspot__hubspot-search-*`
-- **Sentry:** `mcp__Sentry__list_*`, `mcp__Sentry__get_*`, `mcp__Sentry__resolve_*`, `mcp__Sentry__search_*`
 - **Playwright:** browser_snapshot, browser_take_screenshot, browser_tab_list, browser_console_messages, browser_network_requests
+- **Pencil:** `mcp__pencil`
 
 ### Denied
 
@@ -60,4 +59,4 @@ Runs `sync-skills.sh` silently to sync skills to other harnesses.
 
 ## MCP Servers (User-Level)
 
-All user MCP servers are configured in `~/.claude.json` under the top-level `mcpServers` key. See [mcp-servers.md](../../inventory/mcp-servers.md) for the full list (8 user servers, 5 claude.ai connectors, 2 plugin MCPs).
+All user MCP servers are configured in `~/.claude.json` under the top-level `mcpServers` key. See [mcp-servers.md](../../inventory/mcp-servers.md) for the full list (10 user servers, 2 plugin MCPs).

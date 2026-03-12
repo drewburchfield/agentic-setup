@@ -1,6 +1,6 @@
 # Marketplaces Inventory
 
-10 plugin marketplaces configured.
+11 plugin marketplaces configured.
 
 | Marketplace | Repository | Maintainer | Plugins |
 |-------------|------------|------------|-----------------|
@@ -10,8 +10,9 @@
 | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Anthropic | 31 |
 | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | sawyerhood | 1 |
 | helpscout-mcp | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | drewburchfield | 1 |
+| impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | pbakaus | 1 |
 | knowledge-work-plugins | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Anthropic | 15 |
-| not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield | 11 |
+| not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield | 10 |
 | project-codeguard | [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard) | cosai-oasis | 1 |
 | superpowers-marketplace | [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) | obra (Jesse Vincent) | 3 |
 

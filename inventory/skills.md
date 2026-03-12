@@ -1,6 +1,6 @@
 # Skills Inventory
 
-78 unique skills across personal and plugin sources.
+96 skills across personal and plugin sources.
 
 ## Personal Skills (10)
 
@@ -19,7 +19,7 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | things | [clings CLI](https://github.com/drewburchfield/clings) (`brew install drewburchfield/tap/clings`) | Things 3 task management: read, create, update, complete, or search tasks and projects. |
 | thinking-partner | None | Collaborative thinking partner for exploring complex problems through careful questioning, not rushing to solutions. |
 
-## Plugin Skills (67 unique)
+## Plugin Skills (86)
 
 ### From [superpowers](https://github.com/obra/superpowers) (superpowers-marketplace)
 
@@ -105,6 +105,29 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | Skill | Description |
 |-------|-------------|
 | dev-browser | Browser automation with persistent page state, Chrome extension mode. |
+
+### From [impeccable](https://github.com/pbakaus/impeccable) (impeccable)
+
+| Skill | Description |
+|-------|-------------|
+| adapt | Adapt designs across screen sizes, devices, and contexts. |
+| animate | Add purposeful animations, micro-interactions, and motion effects. |
+| audit | Comprehensive interface audit across accessibility, performance, theming, and more. |
+| bolder | Amplify safe or boring designs to be more visually interesting. |
+| clarify | Improve unclear UX copy, error messages, labels, and instructions. |
+| colorize | Add strategic color to monochromatic or visually flat features. |
+| critique | Evaluate design effectiveness from a UX perspective. |
+| delight | Add moments of joy, personality, and unexpected touches to interfaces. |
+| distill | Strip designs to their essence by removing unnecessary complexity. |
+| extract | Extract and consolidate reusable components, tokens, and patterns into a design system. |
+| frontend-design | Production-grade frontend interfaces with high design quality. (Also provided by document-skills.) |
+| harden | Improve interface resilience through error handling, i18n, and overflow handling. |
+| normalize | Normalize design to match your design system for consistency. |
+| onboard | Design or improve onboarding flows, empty states, and first-time user experiences. |
+| optimize | Improve interface performance across loading, rendering, animations, and images. |
+| polish | Final quality pass before shipping: alignment, spacing, consistency, details. |
+| quieter | Tone down overly bold or visually aggressive designs while maintaining identity. |
+| teach-impeccable | One-time setup to gather design context for your project. |
 
 ### From [codeguard-security](https://github.com/cosai-oasis/project-codeguard) (project-codeguard)
 

@@ -23,7 +23,7 @@ Catches problems at the moment code is committed, regardless of how it was writt
 - `.env` files staged for commit (warns and prompts, doesn't auto-block)
 - High/critical vulnerabilities in npm dependencies when `package.json` changes
 
-See [config/git/pre-commit](../config/git/pre-commit). Wire it globally with `git config --global core.hooksPath`.
+See [config/git/pre-commit](../config/git/pre-commit). Wire it globally via git's template directory system (`git config --global init.templateDir ~/.git-templates`). See [git config reference](../config/git/config-reference.md) for setup instructions.
 
 ## Tier 3: Runtime Guards
 

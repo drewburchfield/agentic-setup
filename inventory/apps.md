@@ -66,7 +66,7 @@ Listed in priority order. All share a unified skill library through the sync scr
 |-----|---------------|-------------|
 | [Things 3](https://culturedcode.com/things/) | Task database accessed by the `clings` CLI and things skill | Personal task management |
 | [Slack](https://slack.com/) | Channels exposed via the Slack MCP server | Team communication |
-| [Linear](https://linear.app/) | Issues exposed via the Linear plugin MCP and claude.ai connector | Project and issue tracking |
+| [Linear](https://linear.app/) | Issues exposed via the Linear plugin MCP | Project and issue tracking |
 | [Raycast](https://www.raycast.com/) | Launcher and automation | Extensible launcher with clipboard history, snippets, and scripts |
 
 ## Design & Prototyping
@@ -75,7 +75,7 @@ Beyond agentic CLIs, these tools handle UI design, prototyping, and image genera
 
 | Tool | Description |
 |------|-------------|
-| [Pencil](https://pencil.li/) | Visual design with MCP integration for AI-driven design workflows. Accessed via the Pencil MCP server (Codex). |
+| [Pencil](https://pencil.li/) | Visual design with MCP integration for AI-driven design workflows. The Pencil app auto-exposes an MCP server when running, providing tools for batch design, style guides, screenshots, and layout inspection of `.pen` files. Accessed on Claude Code and Codex CLI. |
 | [Stitch](https://stitch.withgoogle.com/) | Google Labs experiment that generates UI designs and frontend code from text prompts or image uploads (whiteboard sketches, screenshots). Exports to Figma or clean frontend code. Powered by Gemini. |
 | [v0](https://v0.dev/) | Vercel's AI UI generator. Generates React components with Tailwind from text prompts. Copy-paste into Next.js projects or deploy directly. |
 | [Lovable](https://lovable.dev/) | AI-powered full-stack app builder. Generates working apps from natural language descriptions with deployment included. |

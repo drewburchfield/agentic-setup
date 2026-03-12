@@ -1,6 +1,6 @@
 # Plugins Inventory
 
-66 plugins across 10 marketplaces.
+67 plugins across 11 marketplaces.
 
 | Category | Plugin | Marketplace | Source | Description |
 |----------|--------|-------------|--------|-------------|
@@ -18,6 +18,7 @@
 | **Security & Safety** | codeguard-security | project-codeguard | [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard) | Secure coding practices and vulnerability prevention |
 | | safety-net | cc-marketplace | [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net) | Safety net for dangerous operations |
 | | security-guidance | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance) | Security best practices |
+| **Design** | impeccable | impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Design quality toolkit: critique, polish, animate, simplify, harden, audit, and more (18 skills) |
 | **Browser Automation** | dev-browser | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | Browser automation with persistent page state |
 | **Document & Content** | document-skills | anthropic-agent-skills | [anthropics/skills](https://github.com/anthropics/skills) (document-skills dir) | Document creation: PDF, DOCX, PPTX, XLSX, and more |
 | | example-skills | anthropic-agent-skills | [anthropics/skills](https://github.com/anthropics/skills) (template dir) | Example/template versions of document skills |

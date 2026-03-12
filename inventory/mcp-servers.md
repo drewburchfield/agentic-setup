@@ -1,6 +1,6 @@
 # MCP Servers Inventory
 
-10 MCP servers configured for Claude Code, plus additional servers on other harnesses. Google Workspace access (Gmail, Calendar, Drive, Docs, Sheets) is handled by the [gog CLI](https://github.com/drewburchfield/gogcli-safe) rather than MCP servers.
+12 MCP servers configured for Claude Code, plus additional servers on other harnesses. Google Workspace access (Gmail, Calendar, Drive, Docs, Sheets) is handled by the [gog CLI](https://github.com/drewburchfield/gogcli-safe) rather than MCP servers.
 
 ## Docker MCP Toolkit
 
@@ -13,9 +13,9 @@
 - **Sequential Thinking** - Structured reasoning
 - **Code Mode** - Code execution context
 
-## Claude Code (10 servers)
+## Claude Code (12 servers)
 
-Two sources (8 user, 2 plugin): user-level config and built-in plugin MCPs.
+Two sources (10 user, 2 plugin): user-level config and built-in plugin MCPs.
 
 ### User MCPs (`~/.claude.json`)
 
@@ -29,6 +29,8 @@ Two sources (8 user, 2 plugin): user-level config and built-in plugin MCPs.
 | nanobanana | stdio | 3rd party, Dockerized via [master_mcp](https://github.com/drewburchfield/master_mcp). Upstream: [zhongweili/nanobanana-mcp-server](https://github.com/zhongweili/nanobanana-mcp-server) | AI image generation and editing |
 | granola | HTTP (remote) | 3rd party: [granola.ai](https://granola.ai/) (`https://mcp.granola.ai/mcp`) | AI meeting notes: query, list, and get meeting transcripts |
 | slack | stdio | 3rd party, Dockerized via [master_mcp](https://github.com/drewburchfield/master_mcp). Upstream: [korotovsky/slack-mcp-server](https://github.com/korotovsky/slack-mcp-server) | Slack channel history, search, thread replies |
+| bluebubbles | stdio | Custom: locally cloned [BlueBubbles MCP server](https://github.com/BlueBubbles/bluebubbles-mcp-server) at `~/.claude/mcp-servers/bluebubbles-mcp-server/` | iMessage integration: send/receive messages, search, contacts, chat management |
+| pencil | App-exposed | 3rd party: [Pencil app](https://pencil.li/) (auto-exposed when the app is running) | Visual design tool for .pen files: batch design, screenshots, style guides, layout inspection |
 
 ### Built-in Plugin MCPs
 
@@ -56,7 +58,7 @@ Provided automatically by installed plugins.
 |--------|------|--------|
 | MCP_DOCKER | stdio | [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) |
 | Playwright | stdio | 3rd party: [playwright.dev](https://playwright.dev/) via `npx @playwright/mcp@latest` |
-| pencil | stdio | 3rd party: [Pencil app](https://pencil.li/) (bundled MCP server binary) |
+| pencil | App-exposed | 3rd party: [Pencil app](https://pencil.li/) (auto-exposed when the app is running) |
 | linear | remote | 3rd party: [linear.app](https://linear.app/) (`https://mcp.linear.app/mcp`) |
 
 ## OpenCode
@@ -82,12 +84,3 @@ Provided automatically by installed plugins.
 | slack-mcp | Slack channel history, search, thread replies | [korotovsky/slack-mcp-server](https://github.com/korotovsky/slack-mcp-server) |
 | [obsidian-graph-mcp](https://github.com/drewburchfield/obsidian-graph-mcp) | Semantic knowledge graph companion to the [Knowledge Vault](https://github.com/drewburchfield/knowledge-vault). Vector embeddings via Voyage Context-3 with PostgreSQL+pgvector for graph navigation and semantic search over the vault. | Custom |
 | atlassian | Jira and Confluence. Supports multiple workspace instances. | [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian) |
-
-## Summary by Harness
-
-| Harness | Total Servers | Unique to This Harness |
-|---------|--------------|----------------------|
-| Claude Code | 10 | ChatPRD, exa, Google-PSE, granola, helpscout, nanobanana, slack, MCP_DOCKER, 2 plugin MCPs |
-| Gemini CLI | 2 | - |
-| Codex CLI | 4 | pencil, linear |
-| OpenCode | 5 | zai-vision, zai-search, zai-reader, zai-zread |

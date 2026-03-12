@@ -8,7 +8,7 @@ Four browser automation tools, each with different strengths. This matrix covers
 |------|------|---------------|-------------------|----------|
 | **[agent-browser](https://github.com/vercel-labs/agent-browser)** | CLI (Rust + Playwright) | Via saved state | ~130 | Full-featured automation, video, network mocking, stealth |
 | **[dev-browser](https://github.com/sawyerhood/dev-browser)** | Claude Code plugin | Via Chrome extension | ~79 | Fast automation with existing Chrome logins |
-| **[Claude-in-Chrome](https://claude.ai)** | Chrome extension + MCP | Native (your browser) | ~18 | Authenticated workflows, GIF recording, zero setup |
+| **[Claude-in-Chrome](https://claude.ai)** | Chrome extension + MCP | Native (your browser) | ~39 | Authenticated workflows, GIF recording, zero setup |
 | **[Playwright MCP](https://playwright.dev/)** | MCP server | Via storage state | ~40 | Cross-browser testing, coordinate-based vision |
 
 ### What You Lose
