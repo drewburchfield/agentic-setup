@@ -7,7 +7,7 @@ macOS apps and infrastructure that support the agentic setup.
 | App | Role in Setup | Description |
 |-----|---------------|-------------|
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Runs MCP servers via Docker MCP Toolkit and master_mcp | Container runtime. The Docker MCP Toolkit gateway (`docker mcp gateway run`) is piped into all 4 harnesses. master_mcp orchestrates additional Dockerized MCP servers (Google-PSE, nanobanana, Slack, obsidian-graph-mcp, Atlassian). |
-| [Obsidian](https://obsidian.md/) | Hosts the Knowledge Vault, accessed by MCP_DOCKER's Obsidian service | Markdown-based knowledge management app. Read/write, search, and periodic notes are exposed to all harnesses through the Docker MCP Toolkit. |
+| [Obsidian](https://obsidian.md/) | Hosts [Kindling](https://github.com/drewburchfield/kindling), accessed by MCP_DOCKER's Obsidian service | Markdown-based knowledge management app. Read/write, search, and periodic notes are exposed to all harnesses through the Docker MCP Toolkit. |
 | [Sprites](https://sprites.dev/) | Isolated execution environment for running Claude Code or AI-generated code | Stateful sandbox environments from Fly.io. Hardware-isolated Linux computers with checkpoint/restore. Used when you want Claude Code running in a fully isolated environment rather than on your local machine - useful for exploratory work, untrusted code, or situations where local environment pollution is a concern. |
 | [1Password](https://1password.com/) | Credential store accessed by the `op` CLI and 1password-management plugin | Password manager and secrets infrastructure. Used through developer workflows including service accounts, environment variable injection, SSH key management, and secret references across projects. The CLI (`op`) and 1password-management plugin provide credential lookups, vault operations, and secure secret sharing. |
 
@@ -15,8 +15,8 @@ macOS apps and infrastructure that support the agentic setup.
 
 | Component | Description |
 |-----------|-------------|
-| [Knowledge Vault](https://github.com/drewburchfield/knowledge-vault) | A personal knowledge base built in Obsidian that combines two complementary frameworks. **Zettelkasten** handles collection: atomic, densely linked notes that grow organically through connections rather than rigid hierarchies. **CORE** (Collect, Organize, Reflect, Express) handles the lifecycle: capturing raw inputs, structuring them into the Zettelkasten, surfacing patterns through periodic review, and producing outputs from accumulated knowledge. Together they create a system where every note is both a standalone idea and a node in a larger network. (Repo and documentation coming soon.) |
-| [obsidian-graph-mcp](https://github.com/drewburchfield/obsidian-graph-mcp) | Graph database companion to the Knowledge Vault. Provides semantic knowledge graph navigation using AI-powered vector embeddings (Voyage Context-3) and PostgreSQL with pgvector. Tightly coupled with the vault by design: every note is both a markdown file in Obsidian and a vector-embedded node in the graph. Exposed as an MCP server, giving all AI harnesses semantic search and graph traversal over the vault. |
+| [Kindling](https://github.com/drewburchfield/kindling) | Turn raw thoughts into written work. Blends Zettelkasten, **CODE** (Capture, Organize, Distill, Express), and **PARA** (Projects, Areas, Resources, Archive) with Claude Code as the discipline layer. AI thinks with you, extracts and organizes. You write. |
+| [obsidian-graph](https://github.com/drewburchfield/obsidian-graph) | Semantic graph companion to Kindling. Vector embeddings via Voyage Context-3 with PostgreSQL+pgvector. Every note is both a markdown file in Obsidian and a vector-embedded node in the graph. Exposed as an MCP server, giving all AI harnesses semantic search and graph traversal over the vault. |
 
 ## AI Infrastructure
 

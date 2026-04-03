@@ -6,7 +6,7 @@
 
 [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) is piped into all 4 harnesses via `docker mcp gateway run`. It bundles these services in a single gateway:
 
-- **Obsidian** - Obsidian MCP connected to Knowledge Vault (read/write, search, periodic notes)
+- **Obsidian** - Obsidian MCP connected to [Kindling](https://github.com/drewburchfield/kindling) (read/write, search, periodic notes)
 - **YouTube Transcript** - Video info, timed transcripts
 - **Time** - Current time, timezone conversion
 - **Fetch** - HTTP fetching
@@ -82,5 +82,5 @@ Provided automatically by installed plugins.
 | google-search | Google Programmable Search Engine | [adenot/mcp-google-search](https://github.com/adenot/mcp-google-search) |
 | nanobanana | AI image generation and editing | [zhongweili/nanobanana-mcp-server](https://github.com/zhongweili/nanobanana-mcp-server) |
 | slack-mcp | Slack channel history, search, thread replies | [korotovsky/slack-mcp-server](https://github.com/korotovsky/slack-mcp-server) |
-| [obsidian-graph-mcp](https://github.com/drewburchfield/obsidian-graph-mcp) | Semantic knowledge graph companion to the [Knowledge Vault](https://github.com/drewburchfield/knowledge-vault). Vector embeddings via Voyage Context-3 with PostgreSQL+pgvector for graph navigation and semantic search over the vault. | Custom |
+| [obsidian-graph](https://github.com/drewburchfield/obsidian-graph) | Semantic knowledge graph companion to [Kindling](https://github.com/drewburchfield/kindling). Vector embeddings via Voyage Context-3 with PostgreSQL+pgvector for graph navigation and semantic search over the vault. | Custom |
 | atlassian | Jira and Confluence. Supports multiple workspace instances. | [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian) |

@@ -47,8 +47,8 @@ Five tiers from behavior constraints to full environment isolation. See [securit
 
 Work produces insights that feed back into the system:
 
-- **Obsidian Knowledge Vault**: Zettelkasten for atomic, linked notes. CORE framework (Collect, Organize, Reflect, Express) for the full lifecycle.
-- **obsidian-graph-mcp**: Semantic search and graph traversal over the vault via Voyage Context-3 embeddings, accessible from all harnesses.
+- **[Kindling](https://github.com/drewburchfield/kindling)**: Zettelkasten for atomic, linked notes. CODE framework (Capture, Organize, Distill, Express) + PARA for the full lifecycle.
+- **[obsidian-graph](https://github.com/drewburchfield/obsidian-graph)**: Semantic search and graph traversal over the vault via Voyage Context-3 embeddings, accessible from all harnesses.
 
 ### Skill Distribution
 
