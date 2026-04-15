@@ -16,7 +16,7 @@
 | | project-bootstrap | not-my-job | [drewburchfield/project-bootstrap](https://github.com/drewburchfield/project-bootstrap) | Auto-detect language, set up quality tooling, configure hooks |
 | | braintrust | not-my-job | [drewburchfield/braintrust](https://github.com/drewburchfield/braintrust) | Multi-model orchestration (Gemini, Codex, Claude) for second opinions and research |
 | **Security & Safety** | codeguard-security | project-codeguard | [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard) | Secure coding practices and vulnerability prevention |
-| | safety-net | cc-marketplace | [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net) | Safety net for dangerous operations |
+| | safety-net | claude-community | [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net) | Safety net for dangerous operations |
 | | security-guidance | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance) | Security best practices |
 | **Design** | impeccable | impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Design quality toolkit: critique, polish, animate, simplify, harden, audit, and more (18 skills) |
 | **Browser Automation** | dev-browser | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | Browser automation with persistent page state |

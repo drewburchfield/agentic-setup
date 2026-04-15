@@ -5,8 +5,8 @@
 | Marketplace | Repository | Maintainer | Plugins |
 |-------------|------------|------------|-----------------|
 | anthropic-agent-skills | [anthropics/skills](https://github.com/anthropics/skills) | Anthropic | 2 |
-| cc-marketplace | [kenryu42/cc-marketplace](https://github.com/kenryu42/cc-marketplace) | kenryu42 | 1 |
 | claude-canvas | [dvdsgl/claude-canvas](https://github.com/dvdsgl/claude-canvas) | dvdsgl | 1 |
+| claude-community | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | Anthropic | 1 |
 | claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Anthropic | 31 |
 | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | sawyerhood | 1 |
 | helpscout-mcp | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | drewburchfield | 1 |
