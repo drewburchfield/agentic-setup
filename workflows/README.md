@@ -54,6 +54,8 @@ Work produces insights that feed back into the system:
 
 Automatic, invisible. Plugins install skills into Claude Code. The sync script runs on every session start and symlinks everything to Codex, Gemini, and OpenCode. No manual steps needed.
 
+See [setup-audit.md](setup-audit.md) for the current source-of-truth model, drift risks, and next improvements.
+
 ### Sandboxed Execution
 
 For situations where running Claude Code directly on your local machine isn't desirable. [Sprites](https://sprites.dev/) are hardware-isolated Linux environments with checkpoint/restore - you run Claude Code inside a Sprite instead of locally.
