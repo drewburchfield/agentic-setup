@@ -34,7 +34,7 @@ This repo should explain a working AI-agent environment from first principles, n
 
 ## Layer 3: Drift Detection
 
-**Current state:** `scripts/sync-skills.sh --dry-run` gives the most truthful skill graph. `inventory/skills.md` is a snapshot.
+**Current state:** `scripts/sync-skills.sh --dry-run` gives the most truthful skill graph. `inventory/skills.md` is a hand-curated reference and can drift between updates.
 
 **Gap:** There is no committed check that says whether inventory is stale.
 
