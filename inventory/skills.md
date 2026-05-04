@@ -1,6 +1,6 @@
 # Skills Inventory
 
-144 skills across personal and plugin sources.
+146 skills across personal and plugin sources.
 
 ## Personal Skills (36)
 
@@ -45,7 +45,7 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | zero | [zero CLI](https://www.zero-tools.com/) | Discover and call paid AI capabilities and external services with automatic x402 payment. |
 | zoom-out | None | Tell the agent to zoom out for broader context or higher-level perspective. |
 
-## Plugin Skills (108)
+## Plugin Skills (110)
 
 ### From [superpowers](https://github.com/obra/superpowers) (superpowers-marketplace)
 
@@ -204,16 +204,18 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | linear-cli | Manage Linear issues from the command line. |
 | release | Make a release: create release branches, prepare release notes, publish versions. |
 
-### From [not-my-job](https://github.com/drewburchfield/not-my-job) (drewburchfield's personal marketplace, 14 skills across 9 plugins)
+### From [not-my-job](https://github.com/drewburchfield/not-my-job) (drewburchfield's personal marketplace, 16 skills across 11 plugins)
 
 | Skill | Plugin | Description |
 |-------|--------|-------------|
 | 1password-management | [1password-management](https://github.com/drewburchfield/1password-management) | 1Password CLI (`op`) credential management with proper syntax and best practices. |
+| 1password-openclaw | [openclaw-1password](https://github.com/drewburchfield/openclaw-1password) | OpenClaw + 1Password SecretRef setup, diagnosis, repair, and version-aware adaptation. |
 | batch-prospect | [happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Exhaustive network search with pagination and CSV/markdown export. |
 | braintrust | [braintrust](https://github.com/drewburchfield/braintrust) | Orchestrate Gemini, Codex, and Claude Code for second opinions and parallel research. |
 | cre-property-research | [cre-property-research](https://github.com/drewburchfield/cre-property-research) | Commercial real estate property research and market analysis. |
 | deep-search | [happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Network search + automatic person research in one compound workflow. |
 | happenstance | [happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Research people and search professional network via Happenstance API. |
+| helpscout-navigator | [helpscout-navigator](https://github.com/drewburchfield/helpscout-navigator) | HelpScout tool selection, sequencing, and common mistake prevention. |
 | linkedin-message-triage | [linkedin-message-triage](https://github.com/drewburchfield/linkedin-message-triage) | Review LinkedIn messages, filter solicitations, draft personalized replies. |
 | markdown-to-confluence | [markdown-to-confluence](https://github.com/drewburchfield/markdown-to-confluence) | Convert Markdown to Confluence Storage Format (XHTML-based XML). |
 | meeting-prep | [happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Briefing prep combining person research with mutual connections. |

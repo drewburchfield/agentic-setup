@@ -19,7 +19,7 @@ Two years of daily work with AI coding agents, distilled into a reproducible sys
 |:--:|------:|------|
 | 🏪 | **15** | [Plugin marketplaces](inventory/marketplaces.md) (Anthropic official, community, and personal) |
 | 🔌 | **74** | [Plugins](inventory/plugins.md) providing agents, hooks, LSP integrations, and document tools |
-| ⚡ | **144** | [Skills](inventory/skills.md) (36 personal + 108 from plugins), synced across all harnesses |
+| ⚡ | **146** | [Skills](inventory/skills.md) (36 personal + 110 from plugins), synced across all harnesses |
 | 🌐 | **12+** | [MCP servers](inventory/mcp-servers.md) configured per-harness, [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) shared across all four |
 | 🔧 | **30+** | [CLI tools](inventory/clis.md) for service integrations, browser automation, and development runtimes |
 | 🖥️ | **20+** | [Apps and infrastructure](inventory/apps.md) including Docker Desktop, Obsidian, Superwhisper, and supporting macOS apps |
