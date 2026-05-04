@@ -1,14 +1,14 @@
 # Skills Inventory
 
-Current as of 2026-05-01. Generated from the live Claude Code skill graph with `zsh ~/.claude/scripts/sync-skills.sh --dry-run`.
+Current as of 2026-05-04. Generated from the live Claude Code skill graph with `zsh ~/.claude/scripts/sync-skills.sh --dry-run`.
 
-143 unique skills are discoverable after deduplication: 35 personal Claude Code skills and 108 plugin skills.
+144 unique skills are discoverable after deduplication: 36 personal Claude Code skills and 108 plugin skills.
 
 Claude Code is the source of truth. Personal skills live in `~/.claude/skills/`. The sync script creates symlinks outward to Codex, Gemini, and OpenCode.
 
 ## Personal Claude Code Skills
 
-35 skills live directly in `~/.claude/skills/`.
+36 skills live directly in `~/.claude/skills/`.
 
 ### Installed Through skills.sh
 
@@ -50,6 +50,7 @@ These are tracked in `~/.agents/.skill-lock.json`, but their canonical folders n
 | `generated-artifact-cleanup` | `~/.claude/skills/generated-artifact-cleanup` | Clean up iterative generated artifacts without deleting work. Use when a workspace has many draft, final, v1/v2, render, export, raw media, or build-output files and the user wants a grou... |
 | `gitbutler` | `~/.claude/skills/gitbutler` | Commit, push, branch, and manage version control with GitButler. Use for: commit my changes, check what changed, create a PR, push my branch, view diff, create branches, stage files, edit... |
 | `hex` | `~/.claude/skills/hex` | Programmatically interact with the Hex data analytics platform (https://hex.tech). Create projects, add python and sql cells to notebooks, write queries against data connections, build st... |
+| `make-interfaces-feel-better` | `~/.claude/skills/make-interfaces-feel-better` | Design engineering principles for making interfaces feel polished. Use when building UI components, reviewing frontend code, implementing animations, hover states, shadows, borders, typography, micro-interactions, enter/exit animations, or any visual detail work. Source: [jakubkrehel/make-interfaces-feel-better](https://github.com/jakubkrehel/make-interfaces-feel-better). |
 | `newsletter-processor` | `~/.claude/skills/newsletter-processor` | Process newsletters from inbox into structured knowledge artifacts. Use when user says "process newsletters", "review my newsletters", "summarize newsletters", "daily newsletter review",... |
 | `nlm-skill` | `~/.claude/skills/nlm-skill` | Expert guide for the NotebookLM CLI (`nlm`) and MCP server - interfaces for Google NotebookLM. Use this skill when users want to interact with NotebookLM programmatically, including: crea... |
 | `quality-gate` | `~/.claude/skills/quality-gate` | This skill should be used when the user asks to "quality gate", "run quality gate", "review and merge", "PR review cycle", or mentions completing a phase/milestone and wanting comprehensi... |
