@@ -19,8 +19,9 @@ TARGETS=(
 tmpfile=$(mktemp)
 trap "rm -f $tmpfile" EXIT
 
-# 1. Personal skills first (these take priority)
-for dir in "$CLAUDE_SKILLS"/*(N/); do
+# 1. Personal skills first (these take priority). Include symlinked
+# directories because some personal skills wrap npm or compatibility installs.
+for dir in "$CLAUDE_SKILLS"/*(N-/); do
   [[ -f "$dir/SKILL.md" ]] || continue
   name=$(basename "$dir")
   real_path=$(cd "$dir" && pwd -P)

@@ -17,9 +17,9 @@ Two years of daily work with AI coding agents, distilled into a reproducible sys
 
 | | Count | What |
 |:--:|------:|------|
-| 🏪 | **11** | [Plugin marketplaces](inventory/marketplaces.md) (Anthropic official, community, and personal) |
-| 🔌 | **67** | [Plugins](inventory/plugins.md) providing agents, hooks, LSP integrations, and document tools |
-| ⚡ | **96** | [Skills](inventory/skills.md) (10 personal + 86 from plugins), synced across all harnesses |
+| 🏪 | **15** | [Plugin marketplaces](inventory/marketplaces.md) (Anthropic official, community, and personal) |
+| 🔌 | **74** | [Plugins](inventory/plugins.md) providing agents, hooks, LSP integrations, and document tools |
+| ⚡ | **146** | [Skills](inventory/skills.md) (36 personal + 110 from plugins), synced across all harnesses |
 | 🌐 | **12+** | [MCP servers](inventory/mcp-servers.md) configured per-harness, [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) shared across all four |
 | 🔧 | **30+** | [CLI tools](inventory/clis.md) for service integrations, browser automation, and development runtimes |
 | 🖥️ | **20+** | [Apps and infrastructure](inventory/apps.md) including Docker Desktop, Obsidian, Superwhisper, and supporting macOS apps |
@@ -37,6 +37,7 @@ Patterns for how the tools compose together. These are atomic building blocks, n
 | **Security** | Layered: pre-commit credential scanning, codeguard-security plugin, full PR review pipeline. See [security baseline](workflows/security-baseline.md) |
 | **Knowledge Capture** | [Kindling](https://github.com/drewburchfield/kindling) with Zettelkasten + CODE + PARA, semantic search via [obsidian-graph](https://github.com/drewburchfield/obsidian-graph) (Voyage Context-3 + pgvector) |
 | **Skill Distribution** | Automatic. Plugins install skills into Claude Code, [sync script](scripts/sync-skills.sh) symlinks to all other harnesses on every session start |
+| **Setup Audit** | First-principles review of source of truth, reproducibility, drift detection, and tutorial gaps. See [setup audit](workflows/setup-audit.md) |
 
 ## Configuration Reference
 
@@ -61,6 +62,8 @@ Per-harness configuration, global instructions, hooks, and security settings.
 ## How Skill Sync Works
 
 The only executable code in this repo. Claude Code is the single source of truth for plugins and skills. The other three harnesses get read access through symlinks.
+
+Personal skills live in `~/.claude/skills/`. `skills.sh` can still be used for discovery and installs, but after install the canonical folder should be moved into Claude Code and `~/.agents/skills/<name>` should point back to Claude Code. That keeps `~/.agents` as compatibility state, not the source of truth.
 
 ```
 Claude Code plugins install skills
