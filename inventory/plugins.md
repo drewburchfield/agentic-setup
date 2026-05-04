@@ -2,7 +2,7 @@
 
 Current as of 2026-05-04. A curated reference of plugins in active use across this setup.
 
-74 plugins across 15 marketplaces. Some load globally in every Claude Code session, others only when working in specific codebases (project-scoped). The setup uses both patterns — globals for everyday work, project-scoped for specialist work that doesn't need to be loaded everywhere.
+74 plugins across 15 marketplaces. Some load globally in every Claude Code session, others only when working in specific codebases (project-scoped). The setup uses both patterns: globals for everyday work, project-scoped for specialist work that doesn't need to be loaded everywhere.
 
 | Category | Plugin | Marketplace | Source | Description |
 |----------|--------|-------------|--------|-------------|
@@ -60,7 +60,7 @@ Current as of 2026-05-04. A curated reference of plugins in active use across th
 | | openclaw-1password | not-my-job | [drewburchfield/openclaw-1password](https://github.com/drewburchfield/openclaw-1password) | OpenClaw + 1Password SecretRef integration with setup automation |
 | | cre-property-research | not-my-job | [drewburchfield/cre-property-research](https://github.com/drewburchfield/cre-property-research) | Commercial real estate property research and market analysis |
 | | happenstance-navigator | not-my-job | [drewburchfield/happenstance-navigator](https://github.com/drewburchfield/happenstance-navigator) | Network intelligence: research people, search networks, compound workflows |
-| | helpscout-navigator | not-my-job | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | HelpScout tool selection, sequencing, and common mistake prevention |
+| | helpscout-navigator | not-my-job | [drewburchfield/helpscout-navigator](https://github.com/drewburchfield/helpscout-navigator) | HelpScout tool selection, sequencing, and common mistake prevention |
 | | linkedin-message-triage | not-my-job | [drewburchfield/linkedin-message-triage](https://github.com/drewburchfield/linkedin-message-triage) | LinkedIn inbox review, solicitation filtering, draft replies |
 | | markdown-to-confluence | not-my-job | [drewburchfield/markdown-to-confluence](https://github.com/drewburchfield/markdown-to-confluence) | Convert Markdown to Confluence Storage Format (XHTML-based XML) |
 | | readme-craft | not-my-job | [drewburchfield/readme-craft](https://github.com/drewburchfield/readme-craft) | Clean, human-sounding README generation |
@@ -83,8 +83,8 @@ Current as of 2026-05-04. A curated reference of plugins in active use across th
 
 ## Notes
 
-- `claude-plugins-official` is the largest source (24 plugins) — agents, hooks, LSPs, document tools, output styles, plugin-dev tooling.
+- `claude-plugins-official` is the largest source (30 plugins): agents, hooks, LSPs, document tools, output styles, plugin-dev tooling.
 - `not-my-job` is drewburchfield's personal marketplace (11 plugins) covering personal utilities and dev workflows.
-- `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins) — entire functional areas as composed tool sets.
+- `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins): entire functional areas as composed tool sets.
 - `claude-community` (formerly `cc-marketplace` before the remote rename) is where `safety-net` comes from.
 - For the marketplaces these plugins come from (URLs, owners), see [marketplaces.md](marketplaces.md).

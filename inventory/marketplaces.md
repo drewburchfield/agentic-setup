@@ -10,7 +10,7 @@ Current as of 2026-05-04. The plugin marketplaces this setup pulls from.
 | claude-canvas | [dvdsgl/claude-canvas](https://github.com/dvdsgl/claude-canvas) | David Siegel | 1 |
 | claude-code-warp | [warpdotdev/claude-code-warp](https://github.com/warpdotdev/claude-code-warp) | Warp | 1 |
 | claude-community | [kenryu42/claude-community](https://github.com/kenryu42/claude-community) (renamed from `cc-marketplace`) | kenryu42 | 1 |
-| claude-plugins-official | bundled with Claude Code (no remote) | Anthropic | 24 |
+| claude-plugins-official | bundled with Claude Code (no remote) | Anthropic | 30 |
 | dbt-agent-marketplace | [dbt-labs/dbt-agent-skills](https://github.com/dbt-labs/dbt-agent-skills) | dbt Labs | 1 |
 | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | Sawyer Hood | 1 |
 | dlthub-ai-workbench | [dlt-hub/dlthub-ai-workbench](https://github.com/dlt-hub/dlthub-ai-workbench) | dltHub | 3 |
@@ -25,9 +25,9 @@ Current as of 2026-05-04. The plugin marketplaces this setup pulls from.
 ## Notes
 
 - Marketplaces auto-update via `git pull` when Claude Code checks for updates.
-- `claude-plugins-official` is the largest source (24 plugins) — Anthropic's official catalog spanning agents, hooks, LSPs, document tools, and writing styles.
+- `claude-plugins-official` is the largest source (30 plugins): Anthropic's official catalog spanning agents, hooks, LSPs, document tools, and writing styles.
 - `not-my-job` is drewburchfield's personal marketplace (11 plugins) covering personal utilities and dev workflows.
-- `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins) — engineering, design, sales, finance, etc., each as composed tool sets.
+- `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins): engineering, design, sales, finance, etc., each as composed tool sets.
 - `claude-community` was previously named `cc-marketplace`. The local clone may still appear under both names during the transition.
 
 ## Adding a marketplace
