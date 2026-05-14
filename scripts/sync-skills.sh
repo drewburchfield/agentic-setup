@@ -1,7 +1,15 @@
 #!/bin/zsh
 # sync-skills.sh
-# Mirrors all Claude Code skills (personal + plugin) to other AI harnesses.
-# Safe to re-run anytime. Only creates/updates symlinks, never touches real files.
+# Sync personal skills from Claude Code to other agentic harnesses via symlink.
+#
+# Codex auto-imports Claude Code plugin marketplaces on launch and clones them
+# into ~/.codex/plugins/cache/. So for Codex, we only sync personal skills
+# (~/.claude/skills/) into ~/.agents/skills/ (canonical) and skip plugin-cache
+# entirely to avoid duplicates. ~/.codex/skills/ is deprecated upstream; we
+# remove our old symlinks there so Codex stops loading the same skill twice.
+#
+# Gemini and OpenCode have no native plugin marketplace systems, so they get
+# the full personal + plugin-cache sync.
 
 set -eo pipefail
 
@@ -9,81 +17,134 @@ CLAUDE_SKILLS="$HOME/.claude/skills"
 PLUGIN_CACHE="$HOME/.claude/plugins/cache"
 DRY_RUN=${1:-""}
 
-TARGETS=(
+CODEX_TARGET="$HOME/.agents/skills"
+CODEX_DEPRECATED="$HOME/.codex/skills"
+
+FULL_SYNC_TARGETS=(
   "$HOME/.gemini/skills"
-  "$HOME/.codex/skills"
   "$HOME/.config/opencode/skills"
 )
 
-# Collect unique skill directories using a temp file for dedup
-tmpfile=$(mktemp)
-trap "rm -f $tmpfile" EXIT
+personal_tmp=$(mktemp)
+plugin_tmp=$(mktemp)
+trap "rm -f $personal_tmp $plugin_tmp" EXIT
 
-# 1. Personal skills first (these take priority). Include symlinked
-# directories because some personal skills wrap npm or compatibility installs.
+# Personal skills (~/.claude/skills/). Symlinked dirs allowed since some
+# personal skills wrap npm or external installs.
 for dir in "$CLAUDE_SKILLS"/*(N-/); do
   [[ -f "$dir/SKILL.md" ]] || continue
   name=$(basename "$dir")
   real_path=$(cd "$dir" && pwd -P)
-  printf '%s\t%s\n' "$name" "$real_path" >> "$tmpfile"
+  printf '%s\t%s\n' "$name" "$real_path" >> "$personal_tmp"
 done
 
-# 2. Plugin skills
+# Plugin-cache skills (for Gemini/OpenCode full sync only).
 find "$PLUGIN_CACHE" -name "SKILL.md" -type f 2>/dev/null | while read skillmd; do
   [[ "$skillmd" == */template/* ]] && continue
   dir=$(dirname "$skillmd")
   name=$(basename "$dir")
   real_path=$(cd "$dir" && pwd -P)
-  printf '%s\t%s\n' "$name" "$real_path" >> "$tmpfile"
+  printf '%s\t%s\n' "$name" "$real_path" >> "$plugin_tmp"
 done
 
-# Deduplicate: keep first occurrence per name (personal skills win since they're listed first)
-deduped=$(awk -F'\t' '!seen[$1]++' "$tmpfile" | sort -t'	' -k1,1)
-count=$(echo "$deduped" | wc -l | tr -d ' ')
+personal_list=$(awk -F'\t' 'NF>=2 && !seen[$1]++' "$personal_tmp" | sort -t$'\t' -k1,1)
+full_list=$(cat "$personal_tmp" "$plugin_tmp" | awk -F'\t' 'NF>=2 && !seen[$1]++' | sort -t$'\t' -k1,1)
+
+personal_count=$(wc -l < "$personal_tmp" | tr -d ' ')
+full_count=$(printf '%s\n' "$full_list" | grep -c '^' || true)
 
 if [[ "$DRY_RUN" == "--dry-run" ]]; then
-  echo "=== $count unique skills ==="
-  echo "$deduped" | while IFS=$'\t' read name source; do
+  echo "=== Codex (personal only) -> $CODEX_TARGET ==="
+  echo "$personal_count personal skills to sync"
+  printf '%s\n' "$personal_list" | while IFS=$'\t' read name source; do
+    [[ -z "$name" ]] && continue
     short=$(echo "$source" | sed "s|$HOME|~|")
     echo "  $name  <- $short"
   done
+  echo
+  echo "=== Codex deprecated cleanup -> $CODEX_DEPRECATED ==="
+  if [[ -d "$CODEX_DEPRECATED" ]]; then
+    removed_preview=0
+    for link in "$CODEX_DEPRECATED"/*(N@); do
+      removed_preview=$((removed_preview + 1))
+    done
+    echo "Would remove $removed_preview stale symlinks (deprecated path)"
+  fi
+  echo
+  echo "=== Gemini/OpenCode (full sync) ==="
+  echo "$full_count skills to sync to each"
   exit 0
 fi
 
-echo "Syncing $count skills to ${#TARGETS[@]} harnesses..."
-
-for target in "${TARGETS[@]}"; do
+# Sync personal skills into a target dir. Replaces stale non-symlink copies
+# (the frozen first-run translation entries Codex wrote into ~/.agents/skills/).
+sync_personal_into() {
+  local target=$1
   mkdir -p "$target"
-  target_name=$(echo "$target" | sed "s|$HOME/||")
-  added=0
-  updated=0
-  skipped=0
-
-  echo "$deduped" | while IFS=$'\t' read name source; do
+  local target_name=$(echo "$target" | sed "s|$HOME/||")
+  printf '%s\n' "$personal_list" | while IFS=$'\t' read name source; do
+    [[ -z "$name" ]] && continue
     link="$target/$name"
 
-    # Skip if a real (non-symlink) directory exists (native skill for that harness)
+    # Replace stale non-symlink directory (frozen import copy) with a live symlink.
     if [[ -e "$link" && ! -L "$link" ]]; then
-      skipped=$((skipped + 1))
-      continue
+      rm -rf "$link"
     fi
 
-    # Skip if symlink already points to the right place
     if [[ -L "$link" ]]; then
       current=$(readlink "$link")
-      if [[ "$current" == "$source" ]]; then
-        continue
-      fi
+      [[ "$current" == "$source" ]] && continue
       rm "$link"
-      updated=$((updated + 1))
-    else
-      added=$((added + 1))
     fi
 
     ln -s "$source" "$link"
   done
+  echo "  $target_name: $personal_count personal skills synced"
+}
 
-  echo "  $target_name: synced"
+# Full sync (personal + plugin-cache). Preserves harness-native skills that
+# already exist as real directories at the target.
+sync_full_into() {
+  local target=$1
+  mkdir -p "$target"
+  local target_name=$(echo "$target" | sed "s|$HOME/||")
+  printf '%s\n' "$full_list" | while IFS=$'\t' read name source; do
+    [[ -z "$name" ]] && continue
+    link="$target/$name"
+
+    if [[ -e "$link" && ! -L "$link" ]]; then
+      continue
+    fi
+
+    if [[ -L "$link" ]]; then
+      current=$(readlink "$link")
+      [[ "$current" == "$source" ]] && continue
+      rm "$link"
+    fi
+
+    ln -s "$source" "$link"
+  done
+  echo "  $target_name: $full_count skills synced"
+}
+
+echo "Syncing personal skills to Codex..."
+sync_personal_into "$CODEX_TARGET"
+
+# Remove our old symlinks from ~/.codex/skills/. Codex still reads from there
+# for backwards compatibility, which causes duplicates with ~/.agents/skills/.
+# Empty stub dirs and non-symlink content are left alone.
+if [[ -d "$CODEX_DEPRECATED" ]]; then
+  removed=0
+  for link in "$CODEX_DEPRECATED"/*(N@); do
+    rm "$link"
+    removed=$((removed + 1))
+  done
+  echo "  .codex/skills: removed $removed stale symlinks (deprecated path)"
+fi
+
+echo "Syncing personal + plugin skills to Gemini/OpenCode..."
+for target in "${FULL_SYNC_TARGETS[@]}"; do
+  sync_full_into "$target"
 done
 
-echo "Done. $count skills available in Gemini, Codex, and OpenCode."
+echo "Done."

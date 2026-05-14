@@ -1,8 +1,8 @@
 # Skills Inventory
 
-146 skills across personal and plugin sources.
+152 skills across personal and plugin sources.
 
-## Personal Skills (36)
+## Personal Skills (42)
 
 Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 
@@ -23,18 +23,24 @@ Located at `~/.claude/skills/`. These are not from any plugin or marketplace.
 | exa | [Exa MCP server](https://exa.ai) | Neural search and answer APIs for finding specific, technical content on the web. |
 | find-skills | None | Discover and install agent skills when looking for specific functionality. |
 | generated-artifact-cleanup | None | Clean up iterative generated artifacts (drafts, v1/v2, renders, exports) without deleting work. |
+| git-guardrails-claude-code | [mattpocock/skills](https://github.com/mattpocock/skills) | Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D) before they execute. |
 | gitbutler | [GitButler](https://gitbutler.com/) | Commit, push, branch, manage version control via GitButler. Replaces direct git usage. |
 | gog | [drewburchfield/gogcli-safe](https://github.com/drewburchfield/gogcli-safe) (`brew install drewburchfield/tap/gog-safe`) | Google Workspace CLI: Gmail, Calendar, Chat, Drive, Docs, Sheets, Contacts, Tasks. |
 | grill-me | None | Interview the user relentlessly about a plan or design until reaching shared understanding. |
 | grill-with-docs | None | Grilling that updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. |
+| handoff | [mattpocock/skills](https://github.com/mattpocock/skills) | Compact the current conversation into a handoff document for another agent to pick up. |
 | hex | [Hex](https://hex.tech) | Programmatically interact with Hex: create projects, add cells, run queries, build dashboards. |
 | improve-codebase-architecture | None | Find deepening opportunities informed by CONTEXT.md domain language and docs/adr/ decisions. |
 | make-interfaces-feel-better | [jakubkrehel/make-interfaces-feel-better](https://github.com/jakubkrehel/make-interfaces-feel-better) | Design engineering details: text wrapping, concentric radius, optical alignment, animations. |
+| migrate-to-shoehorn | [mattpocock/skills](https://github.com/mattpocock/skills) | Migrate test files from `as` type assertions to @total-typescript/shoehorn for partial test data. |
 | newsletter-processor | None | Process newsletters from inbox into structured knowledge artifacts. |
 | nlm-skill | [nlm CLI](https://github.com/danielcorin/nlm) | Expert guide for the NotebookLM CLI and MCP server. |
+| prototype | [mattpocock/skills](https://github.com/mattpocock/skills) | Build a throwaway prototype: terminal app for state/logic, or parallel UI variations for design questions. |
 | quality-gate | None | Full PR review cycle: agent reviews, Devin.ai integration, CodeRabbit, and remediation loops. |
 | remotion-best-practices | None | Best practices for Remotion video creation in React. |
-| setup-matt-pocock-skills | None | Configure the agent-skills block in AGENTS.md/CLAUDE.md so engineering skills know the project. |
+| scaffold-exercises | [mattpocock/skills](https://github.com/mattpocock/skills) | Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. |
+| setup-matt-pocock-skills | [mattpocock/skills](https://github.com/mattpocock/skills) | Configure the agent-skills block in AGENTS.md/CLAUDE.md so engineering skills know the project. |
+| setup-pre-commit | [mattpocock/skills](https://github.com/mattpocock/skills) | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. |
 | tdd | None | Test-driven development with red-green-refactor loop. |
 | things | [clings CLI](https://github.com/drewburchfield/clings) (`brew install drewburchfield/tap/clings`) | Things 3 task management: read, create, update, complete tasks and projects. |
 | thinking-partner | None | Collaborative thinking partner for exploring complex problems through careful questioning. |
