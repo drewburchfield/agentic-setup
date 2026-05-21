@@ -39,6 +39,16 @@ Multiple entry points depending on what you're building:
 
 Both approaches work for frontend and backend prototyping.
 
+### Browser Automation
+
+Pick the browser tool by what the task needs, not by habit:
+
+- **Claude-in-Chrome** is the default. Real browser, real logins, real session state. Use it for authenticated sites or anything a human should watch happen.
+- **dev-browser / agent-browser** for programmatic control. dev-browser when you need persistent page state; agent-browser when you need video recording, network mocking, or proxy/stealth extensions.
+- **Playwright MCP** only when the deliverable is a Playwright test suite, not for ad-hoc automation.
+
+Full command-by-command comparison in [../references/browser-tools-comparison.md](../references/browser-tools-comparison.md).
+
 ### Security
 
 Five tiers from behavior constraints to full environment isolation. See [security-baseline.md](security-baseline.md) for the full reference.
@@ -64,9 +74,9 @@ Good for: exploratory or high-risk work, untrusted code, avoiding local environm
 
 ### Research
 
-Braintrust parallel research across all three models, plus:
+Braintrust parallel research across all three models. For single lookups, the tool depends on what you're after:
 
-- **Exa MCP** for neural search
-- **Google-PSE MCP** for programmatic web search
-- **DeepWiki** for understanding open source codebases
-- **context7 plugin** for up-to-date library documentation
+- **Exa MCP** is the default for web search and fetch. Better signal than the built-in WebSearch/WebFetch for technical and specific content.
+- **Google-PSE MCP** for Google-style ranked links: current events, mainstream queries, or triaging which URLs to fetch.
+- **DeepWiki** for understanding open source codebases without cloning.
+- **context7 plugin** for up-to-date library, SDK, and CLI docs. Use it even when the answer feels obvious, since training data lags real API changes.
