@@ -8,7 +8,7 @@ The first line of defense is constraining what Claude can do before it does anyt
 
 **CLAUDE.md guardrails** - Global instructions that shape Claude's behavior in every session. Key patterns: require confirmation before touching more than 2-3 files, read before writing, never skip pre-commit hooks (`--no-verify`). These don't block Claude mechanically but they significantly reduce misinterpretation of vague instructions. See [config/claude-code/CLAUDE.md](../config/claude-code/CLAUDE.md).
 
-**Permission settings** - Claude Code's `settings.json` supports `allowedTools` and `deniedTools` arrays to explicitly block specific tools, and `defaultMode` to control how aggressively Claude auto-executes. Restricting dangerous tools (e.g., certain Bash patterns) or requiring confirmation by default is worth configuring early. See [config/claude-code/settings-reference.md](../config/claude-code/settings-reference.md).
+**Permission settings** - Claude Code's `settings.json` supports `allow` and `deny` arrays plus a `defaultMode` that controls how aggressively Claude auto-executes. A curated `allow` list of read-only tools is the most useful thing to configure early. See [config/claude-code/settings-reference.md](../config/claude-code/settings-reference.md).
 
 **Avoid `--dangerously-skip-permissions`** - This flag disables all permission checks and lets Claude run without any confirmation prompts. Don't use it as a default workflow. It exists for fully automated pipelines where you've already validated the context, not for interactive development.
 
