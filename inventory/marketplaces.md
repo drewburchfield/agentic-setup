@@ -9,7 +9,7 @@ Current as of 2026-05-04. The plugin marketplaces this setup pulls from.
 | anthropic-agent-skills | [drewburchfield/anthropic-skills](https://github.com/drewburchfield/anthropic-skills) (fork of [anthropics/skills](https://github.com/anthropics/skills)) | Anthropic | 3 |
 | claude-canvas | [dvdsgl/claude-canvas](https://github.com/dvdsgl/claude-canvas) | David Siegel | 1 |
 | claude-code-warp | [warpdotdev/claude-code-warp](https://github.com/warpdotdev/claude-code-warp) | Warp | 1 |
-| claude-community | [kenryu42/claude-community](https://github.com/kenryu42/claude-community) (renamed from `cc-marketplace`) | kenryu42 | 1 |
+| claude-community | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | Anthropic | 1 |
 | claude-plugins-official | bundled with Claude Code (no remote) | Anthropic | 30 |
 | dbt-agent-marketplace | [dbt-labs/dbt-agent-skills](https://github.com/dbt-labs/dbt-agent-skills) | dbt Labs | 1 |
 | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | Sawyer Hood | 1 |
@@ -28,7 +28,7 @@ Current as of 2026-05-04. The plugin marketplaces this setup pulls from.
 - `claude-plugins-official` is the largest source (30 plugins): Anthropic's official catalog spanning agents, hooks, LSPs, document tools, and writing styles.
 - `not-my-job` is drewburchfield's personal marketplace (11 plugins) covering personal utilities and dev workflows.
 - `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins): engineering, design, sales, finance, etc., each as composed tool sets.
-- `claude-community` was previously named `cc-marketplace`. The local clone may still appear under both names during the transition.
+- `claude-community` resolves to [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community), Anthropic's official community plugin catalog. Only `safety-net` is drawn from it here; that plugin's own source lives at [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net).
 
 ## Adding a marketplace
 

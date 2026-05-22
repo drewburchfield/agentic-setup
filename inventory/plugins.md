@@ -125,5 +125,5 @@ For the security plugins (safety-net, codeguard-security, security-guidance, cod
 - `claude-plugins-official` is the largest source (30 plugins): agents, hooks, LSPs, document tools, output styles, plugin-dev tooling.
 - `not-my-job` is drewburchfield's personal marketplace (11 plugins) covering personal utilities and dev workflows.
 - `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins): entire functional areas as composed tool sets.
-- `claude-community` (formerly `cc-marketplace` before the remote rename) is where `safety-net` comes from.
+- `claude-community` resolves to [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community), Anthropic's official community catalog, where `safety-net` is listed.
 - For the marketplaces these plugins come from (URLs, owners), see [marketplaces.md](marketplaces.md).
