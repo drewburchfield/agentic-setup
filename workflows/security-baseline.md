@@ -45,7 +45,13 @@ Plugin source: [kenryu42/claude-code-safety-net](https://github.com/kenryu42/cla
 
 Catches what slips through during active development. Run before merging.
 
-**code-review and pr-review-toolkit plugins** - Both ship in Anthropic's official catalog (`claude-plugins-official`), which is bundled with Claude Code, so there's no marketplace to add. Enable them from the `/plugin` manager. `code-review` reviews a branch or change set; `pr-review-toolkit` runs multiple specialized agent reviewers against a pull request in parallel, each catching a different class of issue. Good as a lightweight review gate before the full pipeline.
+**code-review and pr-review-toolkit plugins** - Both come from Anthropic's official catalog. Add the marketplace, then enable each from the `/plugin` manager:
+
+```bash
+claude plugin marketplace add anthropics/claude-plugins-official
+```
+
+`code-review` reviews a branch or change set; `pr-review-toolkit` runs multiple specialized agent reviewers against a pull request in parallel, each catching a different class of issue. Good as a lightweight review gate before the full pipeline.
 
 **quality-gate skill** - The full review cycle. Combines agent reviews, Devin Review (severity-categorized issue detection with auto-fixes), and CodeRabbit (line-by-line comments and security analysis) in parallel, then runs remediation loops until reviews pass. The most thorough option - use it on anything going to production.
 
