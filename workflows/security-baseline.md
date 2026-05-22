@@ -29,7 +29,13 @@ See [config/git/pre-commit](../config/git/pre-commit). Wire it globally via git'
 
 Active during Claude Code sessions, intercepting or flagging problems as they happen.
 
-**Safety Net plugin** - Intercepts destructive commands (file deletion, force pushes, database drops, and similar) and stops Claude before execution. Very effective at catching cases where Claude is technically following instructions but about to do something irreversible. Install from [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net).
+**Safety Net plugin** - Intercepts destructive commands (file deletion, force pushes, database drops, and similar) and stops Claude before execution. Very effective at catching cases where Claude is technically following instructions but about to do something irreversible. Install from the community marketplace, then enable `safety-net` from the `/plugin` manager:
+
+```bash
+claude plugin marketplace add anthropics/claude-plugins-community
+```
+
+Plugin source: [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net).
 
 **codeguard-security plugin** - Integrates Project CodeGuard's secure coding rules into Claude's workflow. Flags vulnerability patterns as code is written rather than after the fact. Install from [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard).
 
@@ -39,7 +45,7 @@ Active during Claude Code sessions, intercepting or flagging problems as they ha
 
 Catches what slips through during active development. Run before merging.
 
-**pr-review-toolkit plugin** - Runs multiple specialized agent reviewers against a pull request in parallel. Each agent catches different classes of issues. Good as a lightweight review gate before the full pipeline.
+**code-review and pr-review-toolkit plugins** - Both ship in Anthropic's official catalog (`claude-plugins-official`), which is bundled with Claude Code, so there's no marketplace to add. Enable them from the `/plugin` manager. `code-review` reviews a branch or change set; `pr-review-toolkit` runs multiple specialized agent reviewers against a pull request in parallel, each catching a different class of issue. Good as a lightweight review gate before the full pipeline.
 
 **quality-gate skill** - The full review cycle. Combines agent reviews, Devin Review (severity-categorized issue detection with auto-fixes), and CodeRabbit (line-by-line comments and security analysis) in parallel, then runs remediation loops until reviews pass. The most thorough option - use it on anything going to production.
 
