@@ -29,10 +29,11 @@ See [config/git/pre-commit](../config/git/pre-commit). Wire it globally via git'
 
 Active during Claude Code sessions, intercepting or flagging problems as they happen.
 
-**Safety Net plugin** - Intercepts destructive commands (file deletion, force pushes, database drops, and similar) and stops Claude before execution. Very effective at catching cases where Claude is technically following instructions but about to do something irreversible. Install from the community marketplace, then enable `safety-net` from the `/plugin` manager:
+**Safety Net plugin** - Intercepts destructive commands (file deletion, force pushes, database drops, and similar) and stops Claude before execution. Very effective at catching cases where Claude is technically following instructions but about to do something irreversible. Add the community marketplace and install:
 
 ```bash
 claude plugin marketplace add anthropics/claude-plugins-community
+claude plugin install safety-net@claude-community
 ```
 
 Plugin source: [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net).
@@ -45,10 +46,12 @@ Plugin source: [kenryu42/claude-code-safety-net](https://github.com/kenryu42/cla
 
 Catches what slips through during active development. Run before merging.
 
-**code-review and pr-review-toolkit plugins** - Both come from Anthropic's official catalog. Add the marketplace, then enable each from the `/plugin` manager:
+**code-review and pr-review-toolkit plugins** - Both come from Anthropic's official catalog. Add the marketplace and install both:
 
 ```bash
 claude plugin marketplace add anthropics/claude-plugins-official
+claude plugin install code-review@claude-plugins-official
+claude plugin install pr-review-toolkit@claude-plugins-official
 ```
 
 `code-review` reviews a branch or change set; `pr-review-toolkit` runs multiple specialized agent reviewers against a pull request in parallel, each catching a different class of issue. Good as a lightweight review gate before the full pipeline.
