@@ -40,6 +40,13 @@ Plugin source: [kenryu42/claude-code-safety-net](https://github.com/kenryu42/cla
 
 **codeguard-security plugin** - Integrates Project CodeGuard's secure coding rules into Claude's workflow. Flags vulnerability patterns as code is written rather than after the fact. Install from [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard).
 
+**security-guidance plugin** - Anthropic's official security best-practices guidance, surfaced as Claude writes code. From the official catalog:
+
+```bash
+claude plugin marketplace add anthropics/claude-plugins-official
+claude plugin install security-guidance@claude-plugins-official
+```
+
 **PreToolUse hooks** - Claude Code fires a `PreToolUse` event before every tool call. You can intercept specific tool calls with shell commands - for example, blocking Bash commands matching certain patterns, or logging all file writes to a specific directory. More involved to set up but gives fine-grained control. See [config/claude-code/hooks.md](../config/claude-code/hooks.md).
 
 ## Tier 4: Post-Code Review

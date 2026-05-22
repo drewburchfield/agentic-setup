@@ -4,6 +4,45 @@ Current as of 2026-05-04. A curated reference of plugins in active use across th
 
 74 plugins across 15 marketplaces. Some load globally in every Claude Code session, others only when working in specific codebases (project-scoped). The setup uses both patterns: globals for everyday work, project-scoped for specialist work that doesn't need to be loaded everywhere.
 
+## Recommended Starter Plugins
+
+If you want a high-leverage starting set rather than the whole catalog below, install these. Add each marketplace once, then install the plugins from it.
+
+Workflow and quality (install regardless of stack):
+
+```bash
+# Superpowers: brainstorming, TDD, systematic debugging, verification disciplines
+claude plugin marketplace add obra/superpowers-marketplace
+claude plugin install superpowers@superpowers-marketplace
+
+# Official catalog: docs lookup, refactoring, commits, CLAUDE.md upkeep, guided feature work
+claude plugin marketplace add anthropics/claude-plugins-official
+claude plugin install context7@claude-plugins-official
+claude plugin install code-simplifier@claude-plugins-official
+claude plugin install commit-commands@claude-plugins-official
+claude plugin install claude-md-management@claude-plugins-official
+claude plugin install feature-dev@claude-plugins-official
+```
+
+Frontend and design (if you build UI):
+
+```bash
+claude plugin install frontend-design@claude-plugins-official
+claude plugin marketplace add pbakaus/impeccable
+claude plugin install impeccable@impeccable
+```
+
+Language servers (install the ones matching your stack):
+
+```bash
+claude plugin install pyright-lsp@claude-plugins-official      # Python
+claude plugin install typescript-lsp@claude-plugins-official   # TypeScript / JS
+claude plugin install gopls-lsp@claude-plugins-official         # Go
+claude plugin install swift-lsp@claude-plugins-official         # Swift
+```
+
+For the security plugins (safety-net, codeguard-security, security-guidance, code-review, pr-review-toolkit), see the [security baseline](../workflows/security-baseline.md).
+
 | Category | Plugin | Marketplace | Source | Description |
 |----------|--------|-------------|--------|-------------|
 | **Development** | superpowers | superpowers-marketplace | [obra/superpowers](https://github.com/obra/superpowers) | Development workflows: brainstorming, debugging, TDD, code review, worktrees |
