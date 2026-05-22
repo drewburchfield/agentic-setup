@@ -1,5 +1,8 @@
 .DS_Store
 
+# Local braintrust consultation sessions
+.braintrust/
+
 # Per-agent skill directories created by `npx skills add`
 .agent/
 .agents/
