@@ -1,22 +1,20 @@
 # Agentic Setup Audit
 
-Current as of 2026-05-01.
+Reflects the skills.sh migration (skills managed cross-harness; `~/.agents/skills` canonical).
 
 This repo should explain a working AI-agent environment from first principles, not just list a pile of local config. The goal is reproducibility: someone should understand what matters, what can drift, and what order to install things in.
 
 ## Layer 1: Operating Model
 
-**Current state:** Claude Code is the primary harness. Codex, Gemini, and OpenCode are secondary harnesses that receive skills through symlinks.
+**Current state:** Five harnesses (Claude Code, Codex, Antigravity, OpenCode, Grok). Skills are managed by skills.sh, which installs to a canonical store at `~/.agents/skills/`. Codex, Antigravity, OpenCode, and Grok read from there directly (the universal path); Claude Code gets a symlink from `~/.claude/skills/`.
 
-**Good pattern:** One source of truth for skills. Claude Code owns personal skills and plugin skills. Other harnesses read from Claude through generated symlinks.
+**Good pattern:** One tool, one canonical store, every harness. No homegrown sync layer and no privileged harness. `skills update` refreshes each skill from its source.
 
-**Risk:** `skills.sh` keeps its own lockfile under `~/.agents/.skill-lock.json`, which can make `~/.agents/skills` look canonical. That creates drift unless the direction is explicit.
-
-**Decision:** `~/.agents/skills` is compatibility state. It can track where skills came from, but it should point back to `~/.claude/skills` when a skill is used across harnesses.
+**Source of truth:** Personal skills live in a private repo; the public keep-set installs from public sources; the long tail is a `find-skills` backstop. Plugins remain Claude Code's domain. See [skills.md](../inventory/skills.md).
 
 ## Layer 2: Reproducibility
 
-**Current state:** The README explains the main setup path and the sync script. The inventory files describe what is installed today.
+**Current state:** The README explains the setup and how skills.sh manages skills across harnesses. The inventory files describe what is installed today.
 
 **Gap:** A new user can see the destination but not the full install order. Plugin marketplaces, personal skills, MCP servers, CLIs, and hooks are spread across several inventory files.
 
@@ -27,21 +25,21 @@ This repo should explain a working AI-agent environment from first principles, n
 3. Configure Claude Code settings and hooks.
 4. Add plugin marketplaces.
 5. Enable plugins.
-6. Install personal skills into `~/.claude/skills`.
-7. Run `sync-skills.sh --dry-run`.
+6. Install skills with skills.sh (`skills add -a ...`); personal skills come from the private repo.
+7. Run `npx skills list -g`.
 8. Configure MCP servers per harness.
 9. Run a health check.
 
 ## Layer 3: Drift Detection
 
-**Current state:** `scripts/sync-skills.sh --dry-run` gives the most truthful skill graph. `inventory/skills.md` is a hand-curated reference and can drift between updates.
+**Current state:** `npx skills list -g` gives the most truthful skill graph. `inventory/skills.md` is a hand-curated reference and can drift between updates.
 
 **Gap:** There is no committed check that says whether inventory is stale.
 
 **Improvement:** Add a read-only health command later:
 
 ```bash
-zsh scripts/sync-skills.sh --dry-run
+npx skills list -g
 ```
 
 Then compare:
@@ -50,7 +48,7 @@ Then compare:
 - personal skill count
 - plugin skill count
 - broken symlinks in secondary harnesses
-- `.agents` entries that are real folders instead of Claude-backed symlinks
+- skills installed in some harnesses but missing in others
 
 ## Layer 4: Tutorial Quality
 
@@ -60,8 +58,8 @@ Then compare:
 
 **Improvement:** Add short conceptual pages before the detailed inventories:
 
-- Why Claude Code is the control plane.
-- Why skills sync outward instead of being installed separately per harness.
+- Why Claude Code hosts plugins, hooks, and commands (its irreducible domain).
+- Why skills.sh installs each skill to every harness at once.
 - How plugins differ from personal skills.
 - What MCP servers do and which ones are shared.
 - What to install first on a clean machine.
@@ -70,11 +68,11 @@ Then compare:
 
 ### 1. Skill Graph Module
 
-**Files:** `scripts/sync-skills.sh`, `inventory/skills.md`
+**Files:** `inventory/skills.md`
 
-**Problem:** The sync script knows the skill graph, but the inventory is manually generated from that behavior. The interface for "what skills exist" is buried in a sync side effect.
+**Problem:** `skills list -g` is the live skill graph, but `inventory/skills.md` is hand-maintained and can drift from it.
 
-**Solution:** Split read-only skill discovery from symlink writing. Keep `sync-skills.sh` as the writer, but add a small read-only inventory command later.
+**Solution:** skills.sh handles both install and read-only listing (`skills list -g`); the old sync-script split is resolved.
 
 **Benefit:** Better locality. Inventory generation, stale checks, and sync can all depend on one skill graph interface.
 
@@ -100,9 +98,8 @@ Then compare:
 
 ## Current Recommendation
 
-Keep changes conservative:
+The skills.sh migration is done. Remaining conservative steps:
 
-1. Make Claude Code the skill source of truth.
-2. Keep `skills.sh` installs, but make `.agents` point back to Claude Code.
-3. Update the skills inventory from the live sync graph.
-4. Add a future health-check workflow instead of overbuilding automation today.
+1. Keep skills.sh as the single skill manager; `~/.agents/skills/` is canonical, Claude Code symlinked in.
+2. Refresh the inventory docs from `npx skills list -g` when they drift.
+3. Add a future read-only health-check workflow instead of overbuilding automation today.

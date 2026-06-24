@@ -87,20 +87,21 @@ See the [security baseline](../../workflows/security-baseline.md) for the broade
 
 ## Hooks
 
-Hooks run shell commands at lifecycle events. The most useful starter hook is `SessionStart` for setup tasks. Example from this repo:
+Hooks run shell commands at lifecycle events. Example from this repo (auto-approve Zero CLI calls so they don't prompt):
 
 ```json
 "hooks": {
-  "SessionStart": [{
+  "PreToolUse": [{
+    "matcher": "Bash",
     "hooks": [{
       "type": "command",
-      "command": "zsh ~/.claude/scripts/sync-skills.sh > /dev/null 2>&1 || true"
+      "command": "~/.zero/hooks/auto-approve-zero.sh"
     }]
   }]
 }
 ```
 
-The `|| true` keeps a script failure from blocking the session. Full event list and patterns in [hooks.md](hooks.md).
+Full event list and patterns in [hooks.md](hooks.md). Skills are managed by [skills.sh](https://skills.sh), not a hook.
 
 ## Status Line
 
