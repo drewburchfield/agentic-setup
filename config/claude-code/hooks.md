@@ -16,22 +16,22 @@
 
 ## Active Hooks
 
-### SessionStart: sync-skills.sh
+### PreToolUse (Bash): zero auto-approve
 
-Syncs all Claude Code skills (personal + plugin) to Gemini, Codex, and OpenCode via symlinks.
+Auto-approves [Zero CLI](https://zero.xyz) calls so `zero` runs without a permission prompt.
 
 ```json
-"SessionStart": [{
-  "hooks": [{
-    "type": "command",
-    "command": "zsh ~/.claude/scripts/sync-skills.sh > /dev/null 2>&1 || true"
-  }]
+"PreToolUse": [{
+  "matcher": "Bash",
+  "hooks": [{ "type": "command", "command": "~/.zero/hooks/auto-approve-zero.sh" }]
 }]
 ```
 
-- Silent execution (stdout/stderr suppressed)
-- `|| true` prevents script failure from blocking session startup
-- Script is a symlink to `~/dev/agentic-setup/scripts/sync-skills.sh`
+> **Skills are managed by [skills.sh](https://skills.sh), not a hook.** The previous
+> `SessionStart` `sync-skills.sh` hook (cross-harness symlink sync) has been **retired** in
+> favor of skills.sh native multi-agent installs. The `UserPromptSubmit` zero-context
+> injector was also removed (it pushed Zero context into every prompt); Zero is now invoked
+> on demand.
 
 ## Hook Format
 

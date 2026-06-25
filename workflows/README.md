@@ -62,7 +62,7 @@ Work produces insights that feed back into the system:
 
 ### Skill Distribution
 
-Automatic, invisible. Plugins install skills into Claude Code. The sync script runs on every session start and symlinks everything to Codex, Gemini, and OpenCode. No manual steps needed.
+Managed by [skills.sh](https://skills.sh): `skills add -a ...` installs each skill to all harnesses at once. The canonical store is `~/.agents/skills/` (Codex, Antigravity, OpenCode, and Grok read it directly; Claude Code is symlinked in). No homegrown sync script. Plugin-provided skills install through the plugin system.
 
 See [setup-audit.md](setup-audit.md) for the current source-of-truth model, drift risks, and next improvements.
 

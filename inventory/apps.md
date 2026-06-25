@@ -6,7 +6,7 @@ macOS apps and infrastructure that support the agentic setup.
 
 | App | Role in Setup | Description |
 |-----|---------------|-------------|
-| [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Runs MCP servers via Docker MCP Toolkit and master_mcp | Container runtime. The Docker MCP Toolkit gateway (`docker mcp gateway run`) is piped into all 4 harnesses. master_mcp orchestrates additional Dockerized MCP servers (Google-PSE, nanobanana, Slack, obsidian-graph-mcp, Atlassian). |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Runs MCP servers via Docker MCP Toolkit and master_mcp | Container runtime. The Docker MCP Toolkit gateway (`docker mcp gateway run`) is piped into all harnesses. master_mcp orchestrates additional Dockerized MCP servers (Google-PSE, nanobanana, Slack, obsidian-graph-mcp, Atlassian). |
 | [Obsidian](https://obsidian.md/) | Hosts [Kindling](https://github.com/drewburchfield/kindling), accessed by MCP_DOCKER's Obsidian service | Markdown-based knowledge management app. Read/write, search, and periodic notes are exposed to all harnesses through the Docker MCP Toolkit. |
 | [Sprites](https://sprites.dev/) | Isolated execution environment for running Claude Code or AI-generated code | Stateful sandbox environments from Fly.io. Hardware-isolated Linux computers with checkpoint/restore. Used when you want Claude Code running in a fully isolated environment rather than on your local machine - useful for exploratory work, untrusted code, or situations where local environment pollution is a concern. |
 | [1Password](https://1password.com/) | Credential store accessed by the `op` CLI and 1password-management plugin | Password manager and secrets infrastructure. Used through developer workflows including service accounts, environment variable injection, SSH key management, and secret references across projects. The CLI (`op`) and 1password-management plugin provide credential lookups, vault operations, and secure secret sharing. |
@@ -30,14 +30,15 @@ macOS apps and infrastructure that support the agentic setup.
 
 ## AI Harnesses
 
-Listed in priority order. All share a unified skill library through the sync script.
+Listed in priority order. All share a unified skill library via skills.sh.
 
 | Harness | Priority | Description |
 |---------|----------|-------------|
 | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | Primary | Plugins, skills, hooks, commands, and MCP servers all live here. Source of truth for the setup. |
-| [Codex CLI](https://github.com/openai/codex) | Secondary | OpenAI's coding agent. Gets skills via symlink. |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | Tertiary | Google's coding agent. Gets skills via symlink. |
-| [OpenCode](https://opencode.ai/) | Fourth | Multi-model coding agent. Gets skills via symlink. |
+| [Codex CLI](https://github.com/openai/codex) | Secondary | OpenAI's coding agent. Skills via skills.sh (universal path). |
+| [Antigravity (`agy`)](https://antigravity.google/) | Tertiary | Google's agentic IDE on Gemini models (VS Code-based). Skills via skills.sh. |
+| [OpenCode](https://opencode.ai/) | Fourth | Multi-model coding agent. Skills via skills.sh (universal path). |
+| [Grok](https://x.ai/) | Fifth | xAI's coding agent (`grok`, default model grok-build). Skills via skills.sh (universal path). |
 
 ## Terminals
 

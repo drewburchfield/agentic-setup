@@ -8,10 +8,11 @@ Two years of daily work with AI coding agents, distilled into a reproducible sys
 
 | Harness | Role | MCP Servers |
 |---------|------|-------------|
-| [**Claude Code**](https://docs.anthropic.com/en/docs/claude-code) | Primary. Plugins, skills, hooks, commands all live here. | 12 servers: [Exa](https://exa.ai), [Google-PSE](https://github.com/adenot/mcp-google-search), [Granola](https://granola.ai/), [HelpScout](https://github.com/drewburchfield/help-scout-mcp-server), [Slack](https://github.com/korotovsky/slack-mcp-server), [nanobanana](https://github.com/zhongweili/nanobanana-mcp-server), [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [ChatPRD](https://app.chatprd.ai), [BlueBubbles](https://github.com/BlueBubbles/bluebubbles-mcp-server), [Pencil](https://pencil.li/), 2 plugin MCPs |
-| [**Codex CLI**](https://github.com/openai/codex) | Secondary. Gets skills via symlink. | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [Playwright](https://playwright.dev/), [Pencil](https://pencil.li/), [Linear](https://linear.app/) |
-| [**Gemini CLI**](https://github.com/google-gemini/gemini-cli) | Tertiary. Gets skills via symlink. | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), [Playwright](https://playwright.dev/) |
-| [**OpenCode**](https://opencode.ai/) | Fourth. Gets skills via symlink. | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/), 4 [Z.AI](https://docs.z.ai/devpack/tool/opencode) servers |
+| [**Claude Code**](https://docs.anthropic.com/en/docs/claude-code) | Primary. Plugins, skills, hooks, commands all live here. | Broadest set: [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/) gateway + search, image, design, comms, and notes servers ([details](inventory/mcp-servers.md)) |
+| [**Codex CLI**](https://github.com/openai/codex) | Secondary. Skills via skills.sh (universal path). | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/) gateway + Playwright, Pencil, Linear, and extras ([details](inventory/mcp-servers.md)) |
+| [**Antigravity (`agy`)**](https://antigravity.google/) | Tertiary. Gemini models in a VS Code-based agentic IDE. Skills via skills.sh (universal path). | None configured yet (uses Gemini's built-in tools) |
+| [**OpenCode**](https://opencode.ai/) | Fourth. Skills via skills.sh (universal path). | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/) gateway + [Z.AI](https://docs.z.ai/devpack/tool/opencode) (vision / search / reader / zread) |
+| [**Grok**](https://x.ai/) | Fifth. xAI's `grok` CLI (default model `grok-build`), with its own [xAI plugin marketplace](https://github.com/xai-org/plugin-marketplace). Skills via skills.sh (universal path). | [Docker MCP](https://www.docker.com/products/mcp-catalog-and-toolkit/) gateway + search, image, notes, and personal servers ([details](inventory/mcp-servers.md)) |
 
 ## By the Numbers
 
@@ -19,8 +20,8 @@ Two years of daily work with AI coding agents, distilled into a reproducible sys
 |:--:|------:|------|
 | 🏪 | **15** | [Plugin marketplaces](inventory/marketplaces.md) (Anthropic official, community, and personal) |
 | 🔌 | **74** | [Plugins](inventory/plugins.md) providing agents, hooks, LSP integrations, and document tools |
-| ⚡ | **146** | [Skills](inventory/skills.md) (36 personal + 110 from plugins), synced across all harnesses |
-| 🌐 | **12+** | [MCP servers](inventory/mcp-servers.md) configured per-harness, [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) shared across all four |
+| ⚡ | **16** | [Keep-set skills](inventory/skills.md) managed by [skills.sh](https://skills.sh) across all harnesses (plus plugin-provided skills); the long tail is a `find-skills` backstop |
+| 🌐 | **12+** | [MCP servers](inventory/mcp-servers.md) configured per-harness, [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) shared across harnesses |
 | 🔧 | **30+** | [CLI tools](inventory/clis.md) for service integrations, browser automation, and development runtimes |
 | 🖥️ | **20+** | [Apps and infrastructure](inventory/apps.md) including Docker Desktop, Obsidian, Superwhisper, and supporting macOS apps |
 
@@ -36,7 +37,7 @@ Patterns for how the tools compose together. These are atomic building blocks, n
 | **Design & Prototyping** | Agentic CLI + frontend-design skill + [nanobanana](https://github.com/zhongweili/nanobanana-mcp-server), or external tools ([Stitch](https://stitch.withgoogle.com/), [v0](https://v0.dev/), [Lovable](https://lovable.dev/), [Paper](https://builtwithpaper.com/), [Pencil](https://pencil.li/)) |
 | **Security** | Layered: pre-commit credential scanning, codeguard-security plugin, full PR review pipeline. See [security baseline](workflows/security-baseline.md) |
 | **Knowledge Capture** | [Kindling](https://github.com/drewburchfield/kindling) with Zettelkasten + CODE + PARA, semantic search via [obsidian-graph](https://github.com/drewburchfield/obsidian-graph) (Voyage Context-3 + pgvector) |
-| **Skill Distribution** | Automatic. Plugins install skills into Claude Code, [sync script](scripts/sync-skills.sh) symlinks to all other harnesses on every session start |
+| **Skill Distribution** | [skills.sh](https://skills.sh) installs each skill to all harnesses at once (`skills add -a ...`); canonical store at `~/.agents/skills/`, Claude Code symlinked in |
 | **Setup Audit** | First-principles review of source of truth, reproducibility, drift detection, and tutorial gaps. See [setup audit](workflows/setup-audit.md) |
 
 ## Configuration Reference
@@ -47,8 +48,9 @@ Per-harness configuration, global instructions, hooks, and security settings.
 |--------|------|
 | [Claude Code](config/claude-code/) | [CLAUDE.md](config/claude-code/CLAUDE.md) global instructions, [settings](config/claude-code/settings-reference.md), [hooks](config/claude-code/hooks.md) |
 | [Codex CLI](config/codex/config-reference.md) | Settings, MCP servers, trusted projects |
-| [Gemini CLI](config/gemini/config-reference.md) | Settings, MCP servers, global instructions |
+| [Antigravity (`agy`)](config/antigravity/config-reference.md) | Settings, MCP config, Gemini models |
 | [OpenCode](config/opencode/config-reference.md) | Settings, MCP servers |
+| [Grok](config/grok/config-reference.md) | Settings, models, xAI marketplace, MCP servers |
 | [Git](config/git/) | Global [pre-commit hook](config/git/pre-commit) (credential blocking, .env warning, npm audit) |
 
 ## References
@@ -59,33 +61,31 @@ Per-harness configuration, global instructions, hooks, and security settings.
 
 ---
 
-## How Skill Sync Works
+## How Skills Are Managed
 
-The only executable code in this repo. Claude Code is the single source of truth for plugins and skills. The other three harnesses get read access through symlinks.
+Skills are managed with [skills.sh](https://skills.sh) (`npx skills`): one tool, every
+harness. No homegrown sync layer, no privileged harness.
 
-Personal skills live in `~/.claude/skills/`. `skills.sh` can still be used for discovery and installs, but after install the canonical folder should be moved into Claude Code and `~/.agents/skills/<name>` should point back to Claude Code. That keeps `~/.agents` as compatibility state, not the source of truth.
+`skills add` installs to a canonical store at `~/.agents/skills/`; Codex, Antigravity, OpenCode,
+and Grok read from there directly (the universal path), and Claude Code gets a symlink from
+`~/.claude/skills/`. `skills update` refreshes from each skill's source.
 
 ```
-Claude Code plugins install skills
-        |
-        v
-  sync-skills.sh scans ~/.claude/skills/ and ~/.claude/plugins/cache/
-        |
-        v
-  Deduplicates by name (personal skills win over plugin skills)
-        |
-        v
-  Creates symlinks in ~/.gemini/skills/
-                       ~/.codex/skills/
-                       ~/.config/opencode/skills/
+  private repo (drewburchfield/skills, SSH)  +  public catalog (skills.sh)
+                             |
+                             v
+   npx skills add ... -a claude-code -a codex -a opencode -a antigravity
+                             |
+                             v
+   canonical: ~/.agents/skills/<name>   (Codex / Antigravity / OpenCode / Grok read here)
+                             |
+                             v
+   symlink:   ~/.claude/skills/<name> -> ../../.agents/skills/<name>
 ```
 
-The script runs automatically via a [`SessionStart` hook](config/claude-code/hooks.md) every time Claude Code starts. Silent, failure-safe.
-
-```bash
-zsh scripts/sync-skills.sh           # sync all skills
-zsh scripts/sync-skills.sh --dry-run # preview without changes
-```
+Personal skills live in a private repo; the public keep-set installs from public sources;
+everything else is left to [`find-skills`](https://skills.sh) as a just-in-time backstop.
+See [skills.md](inventory/skills.md).
 
 <details>
 <summary><strong>Reproducing on a new machine</strong></summary>
@@ -96,9 +96,10 @@ zsh scripts/sync-skills.sh --dry-run # preview without changes
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash          # Claude Code
-npm install -g @google/gemini-cli                        # Gemini CLI
 brew install --cask codex                                # Codex CLI
 curl -fsSL https://opencode.ai/install | bash            # OpenCode
+# Antigravity (agy): download from https://antigravity.google/  (Gemini models)
+# Grok CLI (grok):   see https://x.ai / https://github.com/xai-org
 ```
 
 ### 2. Clone this repo
@@ -107,14 +108,21 @@ curl -fsSL https://opencode.ai/install | bash            # OpenCode
 git clone https://github.com/drewburchfield/agentic-setup.git ~/dev/agentic-setup
 ```
 
-### 3. Wire the sync script
+### 3. Install skills
 
 ```bash
-mkdir -p ~/.claude/scripts
-ln -s ~/dev/agentic-setup/scripts/sync-skills.sh ~/.claude/scripts/sync-skills.sh
+# personal skills (private repo, all harnesses)
+npx skills add git@github.com:drewburchfield/skills.git --skill '*' -g \
+  -a claude-code -a codex -a opencode -a antigravity -y
+
+# public keep-set
+npx skills add vercel-labs/skills --skill find-skills -g -a claude-code -a codex -a opencode -a antigravity -y
+npx skills add mattpocock/skills --skill grill-me --skill handoff -g -a claude-code -a codex -a opencode -a antigravity -y
+npx skills add steipete/clawdis --skill bear-notes -g -a claude-code -a codex -a opencode -a antigravity -y
+npx skills add jacob-bd/notebooklm-mcp-cli --skill nlm-skill -g -a claude-code -a codex -a opencode -a antigravity -y
 ```
 
-Then add the SessionStart hook to `~/.claude/settings.json` (see [hooks.md](config/claude-code/hooks.md) for the exact JSON).
+See [skills.md](inventory/skills.md) for the full keep-set and sources.
 
 ### 4. Install plugins
 
@@ -122,7 +130,7 @@ See [plugins.md](inventory/plugins.md) for the full list. Marketplaces are added
 
 ### 5. Configure MCP servers
 
-See [mcp-servers.md](inventory/mcp-servers.md) for per-harness configuration. [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) is shared across all four harnesses.
+See [mcp-servers.md](inventory/mcp-servers.md) for per-harness configuration. [Docker MCP Toolkit](https://www.docker.com/products/mcp-catalog-and-toolkit/) is shared across harnesses.
 
 ### 6. Copy global instructions and references
 
@@ -141,20 +149,20 @@ See the [settings reference](config/claude-code/settings-reference.md) for permi
 
 <br>
 
-### Adding a personal skill
-
-All skills go through Claude Code. Never use `npx skills add` in project directories; it creates per-agent scaffolding that conflicts with the sync script.
+### Adding a skill
 
 ```bash
-cp -r /path/to/skill-name ~/.claude/skills/skill-name    # must contain SKILL.md
-zsh ~/dev/agentic-setup/scripts/sync-skills.sh            # or wait for next session start
+# from any source: GitHub shorthand, full URL, git@ SSH, or a local path
+npx skills add <owner/repo> --skill <name> -g \
+  -a claude-code -a codex -a opencode -a antigravity -y
+
+# update everything / discover on demand
+npx skills update -g
+npx skills find <query>
 ```
 
-For npm packages, symlink instead of copying:
-
-```bash
-ln -s /opt/homebrew/lib/node_modules/agent-browser/skills/agent-browser ~/.claude/skills/agent-browser
-```
+Personal skills go into the private `drewburchfield/skills` repo, then install from there.
+Global (`-g`) installs land in the canonical `~/.agents/skills/` and reach every harness.
 
 ### Adding a plugin
 
@@ -169,8 +177,8 @@ MCP servers are configured per-harness. See [mcp-servers.md](inventory/mcp-serve
 
 ### What NOT to do
 
-- **Don't use `npx skills add` in project directories.** It scatters `.agent/`, `.claude/`, `.goose/`, `.kiro/`, `.windsurf/`, and `skills/` directories that duplicate what the sync script handles.
-- **Don't install skills directly into secondary harnesses.** The sync script owns those directories.
-- **Don't use Gemini's Antigravity skill installer.** It creates a separate index that duplicates what the sync script provides.
+- **Don't hand-copy skills into `~/.claude/skills/`.** Let skills.sh own them so every harness stays in sync and updatable.
+- **Don't install skills per-harness by hand.** Use `skills add -a <agents>` so the canonical `~/.agents/skills/` stays the single source.
+- **Don't commit personal skills to this public repo.** They live in the private `drewburchfield/skills` repo.
 
 </details>

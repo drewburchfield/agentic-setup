@@ -31,7 +31,7 @@ Multiple project directories are marked as `trust_level = 'trusted'`.
 
 ## Skills
 
-Skills are symlinked from Claude Code via `sync-skills.sh` into `~/.codex/skills/`.
+Skills are installed by skills.sh (npx skills add); this harness reads the canonical ~/.agents/skills/ universal path.
 
 ## Other Files
 
