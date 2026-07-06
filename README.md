@@ -39,6 +39,7 @@ Patterns for how the tools compose together. These are atomic building blocks, n
 | **Knowledge Capture** | [Kindling](https://github.com/drewburchfield/kindling) with Zettelkasten + CODE + PARA, semantic search via [obsidian-graph](https://github.com/drewburchfield/obsidian-graph) (Voyage Context-3 + pgvector) |
 | **Skill Distribution** | [skills.sh](https://skills.sh) installs each skill to all harnesses at once (`skills add -a ...`); canonical store at `~/.agents/skills/`, Claude Code symlinked in |
 | **Setup Audit** | First-principles review of source of truth, reproducibility, drift detection, and tutorial gaps. See [setup audit](workflows/setup-audit.md) |
+| **Agent Terminal** | [cmux](https://cmux.com) workspace-per-agent terminal: session resume for all harnesses, per-harness colors, one-click persistent remote sessions with live titles. See [cmux guide](workflows/cmux-remote-agents.md) |
 
 ## Configuration Reference
 

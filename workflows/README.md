@@ -80,3 +80,7 @@ Braintrust parallel research across all three models. For single lookups, the to
 - **Google-PSE MCP** for Google-style ranked links: current events, mainstream queries, or triaging which URLs to fetch.
 - **DeepWiki** for understanding open source codebases without cloning.
 - **context7 plugin** for up-to-date library, SDK, and CLI docs. Use it even when the answer feels obvious, since training data lags real API changes.
+
+### Agent Terminal (cmux)
+
+[cmux](https://cmux.com) is the terminal layer for running many agents in parallel: workspace-per-agent with notification rings, session resume across relaunches for every installed harness, per-harness sidebar colors, and one-click persistent tmux sessions on a remote always-on host with live agent-summary titles. Full configuration, the group + button pattern, and the sharp edges are in [cmux-remote-agents.md](cmux-remote-agents.md).
