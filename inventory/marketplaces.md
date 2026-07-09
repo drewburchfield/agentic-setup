@@ -1,34 +1,29 @@
 # Marketplaces Inventory
 
-Current as of 2026-05-04. The plugin marketplaces this setup pulls from.
+Current as of 2026-07-09. The plugin marketplaces this setup pulls from.
 
-15 marketplaces feeding 74 plugins.
+10 marketplaces feeding 31 plugins.
 
 | Marketplace | Repository | Maintainer | Plugins drawn |
 |-------------|------------|------------|---------------|
-| anthropic-agent-skills | [drewburchfield/anthropic-skills](https://github.com/drewburchfield/anthropic-skills) (fork of [anthropics/skills](https://github.com/anthropics/skills)) | Anthropic | 3 |
-| claude-canvas | [dvdsgl/claude-canvas](https://github.com/dvdsgl/claude-canvas) | David Siegel | 1 |
-| claude-code-warp | [warpdotdev/claude-code-warp](https://github.com/warpdotdev/claude-code-warp) | Warp | 1 |
 | claude-community | [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community) | Anthropic | 1 |
-| claude-plugins-official | bundled with Claude Code (no remote) | Anthropic | 30 |
-| dbt-agent-marketplace | [dbt-labs/dbt-agent-skills](https://github.com/dbt-labs/dbt-agent-skills) | dbt Labs | 1 |
+| claude-plugins-official | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Anthropic | 18 |
 | dev-browser-marketplace | [sawyerhood/dev-browser](https://github.com/sawyerhood/dev-browser) | Sawyer Hood | 1 |
-| dlthub-ai-workbench | [dlt-hub/dlthub-ai-workbench](https://github.com/dlt-hub/dlthub-ai-workbench) | dltHub | 3 |
+| fabric-collection | [microsoft/skills-for-fabric](https://github.com/microsoft/skills-for-fabric) | Microsoft | 2 |
+| helpscout-mcp | [drewburchfield/help-scout-mcp-server](https://github.com/drewburchfield/help-scout-mcp-server) | drewburchfield | 0 |
 | impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Paul Bakaus | 1 |
-| knowledge-work-plugins | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Anthropic | 15 |
 | linear-cli | [schpet/linear-cli](https://github.com/schpet/linear-cli) | schpet | 1 |
-| not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield | 11 |
+| not-my-job | [drewburchfield/not-my-job](https://github.com/drewburchfield/not-my-job) | drewburchfield | 6 |
 | project-codeguard | [cosai-oasis/project-codeguard](https://github.com/cosai-oasis/project-codeguard) | Project CodeGuard | 1 |
-| superpowers-marketplace | [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace) | Jesse Vincent (obra) | 3 |
-| superwhisper | [superultrainc/superwhisper-claude-code](https://github.com/superultrainc/superwhisper-claude-code) | Superwhisper | 1 |
+| trailofbits | [trailofbits/skills](https://github.com/trailofbits/skills) | Trail of Bits | 0 |
 
 ## Notes
 
 - Marketplaces auto-update via `git pull` when Claude Code checks for updates.
-- `claude-plugins-official` is the largest source (30 plugins): Anthropic's official catalog spanning agents, hooks, LSPs, document tools, and writing styles.
-- `not-my-job` is drewburchfield's personal marketplace (11 plugins) covering personal utilities and dev workflows.
-- `knowledge-work-plugins` is Anthropic's role-based bundle (15 plugins): engineering, design, sales, finance, etc., each as composed tool sets.
+- `claude-plugins-official` is the largest source (18 plugins): Anthropic's official catalog spanning agents, hooks, LSPs, code review, and writing styles.
+- `not-my-job` is drewburchfield's personal marketplace (6 plugins) covering personal utilities and dev workflows.
 - `claude-community` resolves to [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community), Anthropic's official community plugin catalog. Only `safety-net` is drawn from it here; that plugin's own source lives at [kenryu42/claude-code-safety-net](https://github.com/kenryu42/claude-code-safety-net).
+- The document skills (docx, pdf, pptx, xlsx) come from [anthropics/skills](https://github.com/anthropics/skills) via skills.sh, not through a marketplace. See [skills.md](skills.md).
 
 ## Adding a marketplace
 

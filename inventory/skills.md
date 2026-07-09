@@ -23,18 +23,35 @@ enumerated here.
 | Skill | Source |
 |-------|--------|
 | find-skills | [vercel-labs/skills](https://github.com/vercel-labs/skills) |
+| ask-matt | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| codebase-design | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| domain-modeling | [mattpocock/skills](https://github.com/mattpocock/skills) |
 | grill-me | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| grill-with-docs | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| grilling | [mattpocock/skills](https://github.com/mattpocock/skills) |
 | handoff | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| implement | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| improve-codebase-architecture | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| prototype | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| setup-matt-pocock-skills | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| tdd | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| to-issues | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| to-prd | [mattpocock/skills](https://github.com/mattpocock/skills) |
+| triage | [mattpocock/skills](https://github.com/mattpocock/skills) |
 | bear-notes | [steipete/clawdis](https://github.com/steipete/clawdis) |
 | nlm-skill | [jacob-bd/notebooklm-mcp-cli](https://github.com/jacob-bd/notebooklm-mcp-cli) |
+| docx | [anthropics/skills](https://github.com/anthropics/skills) |
+| pdf | [anthropics/skills](https://github.com/anthropics/skills) |
+| pptx | [anthropics/skills](https://github.com/anthropics/skills) |
+| xlsx | [anthropics/skills](https://github.com/anthropics/skills) |
 
 **Backstop** — anything outside the keep-set is left to [`find-skills`](https://skills.sh),
 which discovers and installs skills on demand. The long tail is not kept installed; it is
 fetched the moment a task needs it.
 
-**Plugin-provided skills** — many plugins ship their own skills (superpowers,
-`document-skills`, impeccable, plugin-dev, etc.). Those install through the plugin system,
-not skills.sh. See [plugins.md](plugins.md).
+**Plugin-provided skills** — many plugins ship their own skills (impeccable, plugin-dev,
+codeguard-security, etc.). Those install through the plugin system, not skills.sh. See
+[plugins.md](plugins.md).
 
 ## Day-to-day
 
