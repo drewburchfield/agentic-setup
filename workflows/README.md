@@ -8,13 +8,13 @@ This directory is a work in progress. Detailed workflow documentation will be ad
 
 ### Multi-Model Consultation (Braintrust)
 
-Run all three secondary CLIs (Gemini, Codex, Claude subagent) in parallel for second opinions, architecture review, or research. Each model catches different issues. The braintrust plugin handles invocation, output parsing, and synthesis.
+Run peer CLIs (agy, Codex, Grok, OpenCode, Claude) in parallel for second opinions, architecture review, or research. Each model catches different issues. The [braintrust](https://github.com/drewburchfield/braintrust) plugin handles invocation, output parsing, and synthesis. No Gemini CLI (Google path is agy only).
 
 Best for: hard problems, design review, security audits, cross-model code review where the model that wrote the code has blind spots to its own bugs.
 
 ### Local Quality Gate
 
-Run the quality-gate skill with the `--local` flag during active development. Catches issues early without the overhead of the full PR review pipeline. Pairs naturally with braintrust consultations when something looks off.
+Run [project-bootstrap](https://github.com/drewburchfield/project-bootstrap) quality-gate with `--local` during active development. Multi-harness Review Suite catches issues early without the full PR pipeline. Pairs naturally with braintrust consultations when something looks off.
 
 ### PR Review Pipeline
 
@@ -34,7 +34,7 @@ The project-bootstrap skill auto-detects language and sets up quality tooling (E
 
 Multiple entry points depending on what you're building:
 
-- **Agentic CLI + frontend-design skill**: Design directly in code with the coding harness. The braintrust plugin provides design review (Gemini is strong here). nanobanana handles image generation.
+- **Agentic CLI + frontend-design skill**: Design directly in code with the coding harness. The braintrust plugin provides multi-model design review. nanobanana handles image generation.
 - **External prototyping tools** (Stitch, v0, Lovable, Paper, Pencil): Generate UI designs or working prototypes, then hand off to agentic CLIs for business logic and integration.
 
 Both approaches work for frontend and backend prototyping.
@@ -74,7 +74,7 @@ Good for: exploratory or high-risk work, untrusted code, avoiding local environm
 
 ### Research
 
-Braintrust parallel research across all three models. For single lookups, the tool depends on what you're after:
+Braintrust parallel research across peer CLIs. For single lookups, the tool depends on what you're after:
 
 - **Exa MCP** is the default for web search and fetch. Better signal than the built-in WebSearch/WebFetch for technical and specific content.
 - **Google-PSE MCP** for Google-style ranked links: current events, mainstream queries, or triaging which URLs to fetch.
