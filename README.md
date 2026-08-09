@@ -40,6 +40,7 @@ Patterns for how the tools compose together. These are atomic building blocks, n
 | **Skill Distribution** | [skills.sh](https://skills.sh) installs each skill to all harnesses at once (`skills add -a ...`); canonical store at `~/.agents/skills/`, Claude Code symlinked in |
 | **Setup Audit** | First-principles review of source of truth, reproducibility, drift detection, and tutorial gaps. See [setup audit](workflows/setup-audit.md) |
 | **Agent Terminal** | [cmux](https://cmux.com) workspace-per-agent terminal: session resume for all harnesses, per-harness colors, one-click persistent remote sessions with live titles. See [cmux guide](workflows/cmux-remote-agents.md) |
+| **Multi-Account Claude Resume** | Main + additional Claude logins as parallel sticky seats (not account switching); cmux quit/reopen keeps each tab’s `CLAUDE_CONFIG_DIR`. See [multi-account resume](workflows/cmux-claude-multi-account-resume.md) and [`scripts/claude-multi-account/`](scripts/claude-multi-account/) |
 
 ## Configuration Reference
 

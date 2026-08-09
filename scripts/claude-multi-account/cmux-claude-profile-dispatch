@@ -1,0 +1,227 @@
+#!/usr/bin/env bash
+# cmux-claude-profile-dispatch
+#
+# Point cmux Automation > Claude Binary Path at this script so every Claude
+# launch that goes through the cmux Claude wrapper ends here before the real
+# binary. We pin CLAUDE_CONFIG_DIR from a per-session map so resume lands on
+# the additional-account profile that started the session (not the main
+# account default under ~/.claude).
+#
+# Map file: ~/.cmuxterm/claude-config-dir-by-session.json
+#   { "<session-uuid>": { "configDir": "...", "profile": "account-1", "updatedAt": "..." } }
+set -euo pipefail
+
+MAP_PATH="${CMUX_CLAUDE_PROFILE_MAP:-$HOME/.cmuxterm/claude-config-dir-by-session.json}"
+PROFILES_ROOT="${CLAUDE_PROFILES_ROOT:-$HOME/.claude-profiles}"
+
+resolve_real_claude() {
+  if [[ -n "${CMUX_CLAUDE_REAL_BIN:-}" && -x "${CMUX_CLAUDE_REAL_BIN}" ]]; then
+    printf '%s\n' "$CMUX_CLAUDE_REAL_BIN"
+    return 0
+  fi
+
+  local candidate=""
+  if [[ -e "$HOME/.local/bin/claude" ]]; then
+    candidate="$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$HOME/.local/bin/claude" 2>/dev/null || true)"
+  fi
+  # Never re-enter this dispatcher (or another copy of it).
+  if [[ -n "$candidate" && -x "$candidate" && "$candidate" != "$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$0" 2>/dev/null || echo "$0")" ]]; then
+    # Also reject if the target is this script by content marker.
+    if ! grep -q 'cmux-claude-profile-dispatch' "$candidate" 2>/dev/null; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+  fi
+
+  local latest
+  latest="$(ls -1 "$HOME/.local/share/claude/versions" 2>/dev/null | sort -V | tail -1 || true)"
+  if [[ -n "$latest" && -x "$HOME/.local/share/claude/versions/$latest" ]]; then
+    printf '%s\n' "$HOME/.local/share/claude/versions/$latest"
+    return 0
+  fi
+
+  if command -v type >/dev/null 2>&1; then
+    local p
+    p="$(type -P claude 2>/dev/null || true)"
+    if [[ -n "$p" && -x "$p" ]]; then
+      local real
+      real="$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$p" 2>/dev/null || printf '%s' "$p")"
+      if ! grep -q 'cmux-claude-profile-dispatch' "$real" 2>/dev/null; then
+        printf '%s\n' "$real"
+        return 0
+      fi
+    fi
+  fi
+
+  echo "cmux-claude-profile-dispatch: could not find the real claude binary" >&2
+  exit 127
+}
+
+extract_session_id() {
+  # Prints the first session id from --session-id / --resume / -r forms.
+  python3 - "$@" <<'PY'
+import sys
+args = sys.argv[1:]
+i = 0
+while i < len(args):
+    a = args[i]
+    if a == "--":
+        break
+    if a in ("--session-id", "--resume", "-r"):
+        if i + 1 < len(args) and not args[i + 1].startswith("-"):
+            print(args[i + 1])
+            raise SystemExit(0)
+    for prefix in ("--session-id=", "--resume="):
+        if a.startswith(prefix) and a[len(prefix):]:
+            print(a[len(prefix):])
+            raise SystemExit(0)
+    i += 1
+raise SystemExit(1)
+PY
+}
+
+profile_name_for_dir() {
+  local dir="$1"
+  case "$dir" in
+    "$PROFILES_ROOT"/*)
+      local base="${dir#"$PROFILES_ROOT"/}"
+      printf '%s\n' "${base%%/*}"
+      ;;
+    *)
+      printf '\n'
+      ;;
+  esac
+}
+
+lookup_config_dir() {
+  local sid="$1"
+  python3 - "$MAP_PATH" "$sid" "$PROFILES_ROOT" <<'PY'
+import json, os, sys
+from pathlib import Path
+
+map_path, sid, profiles_root = sys.argv[1], sys.argv[2], sys.argv[3]
+
+def load_map(path):
+    try:
+        data = json.loads(Path(path).read_text())
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+def is_uuidish(s):
+    return bool(s) and all(c.isalnum() or c in ".-_" for c in s) and s not in (".", "..")
+
+m = load_map(map_path)
+entry = m.get(sid)
+if isinstance(entry, dict):
+    cfg = entry.get("configDir") or entry.get("config_dir") or ""
+    if cfg and Path(cfg).is_dir():
+        print(cfg)
+        raise SystemExit(0)
+elif isinstance(entry, str) and entry and Path(entry).is_dir():
+    print(entry)
+    raise SystemExit(0)
+
+# Fallback: profile-local markers only (session-env / security).
+# Do NOT scan projects/ when it is a --share-history symlink into ~/.claude,
+# or every main-account session would appear to belong to every profile.
+root = Path(profiles_root)
+if root.is_dir() and is_uuidish(sid):
+    hits = []
+    for profile in sorted(root.iterdir()):
+        if not profile.is_dir():
+            continue
+        if (profile / "session-env" / sid).exists():
+            hits.append(profile)
+            continue
+        sec = profile / "security" / f"security_warnings_state_{sid}.json"
+        if sec.exists():
+            hits.append(profile)
+            continue
+        projects = profile / "projects"
+        # Only scan projects that are real local dirs (not share-history symlinks).
+        if projects.is_dir() and not projects.is_symlink():
+            for p in projects.rglob(f"{sid}.jsonl"):
+                if p.is_file() and p.stat().st_size > 0:
+                    hits.append(profile)
+                    break
+    if len(hits) == 1:
+        print(str(hits[0]))
+        raise SystemExit(0)
+raise SystemExit(1)
+PY
+}
+
+record_mapping() {
+  local sid="$1" config_dir="$2"
+  [[ -n "$sid" && -n "$config_dir" ]] || return 0
+  python3 - "$MAP_PATH" "$sid" "$config_dir" <<'PY'
+import json, os, sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+map_path, sid, config_dir = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+map_path.parent.mkdir(parents=True, exist_ok=True)
+try:
+    data = json.loads(map_path.read_text()) if map_path.exists() else {}
+except Exception:
+    data = {}
+if not isinstance(data, dict):
+    data = {}
+
+profile = ""
+home = str(Path.home())
+marker = str(Path(home) / ".claude-profiles") + os.sep
+if config_dir.startswith(marker):
+    profile = config_dir[len(marker):].split(os.sep, 1)[0]
+
+data[sid] = {
+    "configDir": config_dir,
+    "profile": profile,
+    "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+}
+tmp = map_path.with_suffix(".tmp")
+tmp.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+tmp.replace(map_path)
+os.chmod(map_path, 0o600)
+PY
+}
+
+main() {
+  local real_claude sid=""
+  real_claude="$(resolve_real_claude)"
+
+  if sid="$(extract_session_id "$@" 2>/dev/null)"; then
+    :
+  else
+    sid=""
+  fi
+
+  local current="${CLAUDE_CONFIG_DIR:-}"
+  if [[ -n "$current" && -n "$sid" ]]; then
+    # Fresh or profile-launched session: remember which config dir owns it.
+    case "$current" in
+      "$PROFILES_ROOT"/*|"$HOME/.claude-profiles"/*)
+        record_mapping "$sid" "$current" || true
+        ;;
+    esac
+  fi
+
+  if [[ -n "$sid" ]]; then
+    local mapped=""
+    if mapped="$(lookup_config_dir "$sid" 2>/dev/null)"; then
+      if [[ -n "$mapped" && -d "$mapped" ]]; then
+        export CLAUDE_CONFIG_DIR="$mapped"
+        # Tell the cmux wrapper (on later re-entries) and our own logic that
+        # this auth/config selection is intentional.
+        export CMUX_PRESERVE_CLAUDE_AUTH_SELECTION_ENV=1
+        export CMUX_PRESERVE_CLAUDE_AUTH_SELECTION_ENV_KEYS="${CMUX_PRESERVE_CLAUDE_AUTH_SELECTION_ENV_KEYS:-CLAUDE_CONFIG_DIR}"
+        record_mapping "$sid" "$mapped" || true
+      fi
+    fi
+  fi
+
+  exec "$real_claude" "$@"
+}
+
+main "$@"

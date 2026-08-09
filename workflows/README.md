@@ -84,3 +84,7 @@ Braintrust parallel research across peer CLIs. For single lookups, the tool depe
 ### Agent Terminal (cmux)
 
 [cmux](https://cmux.com) is the terminal layer for running many agents in parallel: workspace-per-agent with notification rings, session resume across relaunches for every installed harness, per-harness sidebar colors, and one-click persistent tmux sessions on a remote always-on host with live agent-summary titles. Full configuration, the group + button pattern, and the sharp edges are in [cmux-remote-agents.md](cmux-remote-agents.md).
+
+### Multi-Account Claude + cmux Resume
+
+Parallel Claude seats: one **main** account (`claude` / `~/.claude`) plus **additional** accounts (`account-1-claude`, …), each sticky on cmux quit/reopen. Not account switching. Profile launchers, session map, and `automation.claudeBinaryPath` dispatch: [cmux-claude-multi-account-resume.md](cmux-claude-multi-account-resume.md).

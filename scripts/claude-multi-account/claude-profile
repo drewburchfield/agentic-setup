@@ -1,0 +1,366 @@
+#!/usr/bin/env bash
+# claude-profile — launch Claude Code under an isolated CLAUDE_CONFIG_DIR profile.
+#
+# Additional-account seat for multi-account Claude. Does not switch the main
+# login: bare `claude` stays on ~/.claude. Each profile keeps its own credentials
+# (Keychain service on macOS) while optionally sharing skills/settings from the
+# main ~/.claude install.
+#
+# Install:
+#   cp claude-profile ~/.local/bin/
+#   ln -s claude-profile ~/.local/bin/account-1-claude  # profile name = "account-1"
+#   ln -s claude-profile ~/.local/bin/account-2-claude  # profile name = "account-2"
+#
+# Or call explicitly:
+#   claude-profile account-1 [--share-history] [claude args...]
+#
+# Inside cmux, launches go through the per-surface Claude shim so hooks fire and
+# cmux-claude-profile-dispatch can pin the profile on auto-resume.
+set -euo pipefail
+
+SOURCE_DIR="${CLAUDE_SHARED_DIR:-$HOME/.claude}"
+PROFILES_ROOT="${CLAUDE_PROFILES_ROOT:-$HOME/.claude-profiles}"
+
+SHARED_ITEMS=(
+  settings.json
+  keybindings.json
+  CLAUDE.md
+  skills
+  commands
+  agents
+  mcp.json
+)
+
+HISTORY_ITEMS=(
+  projects
+  history.jsonl
+)
+
+usage() {
+  cat <<'EOF'
+claude-profile — Claude Code under an isolated config-dir profile
+
+  claude-profile <name> [claude args...]
+  claude-profile <name> --share-history [--] [claude args...]
+  claude-profile <name> --setup-only
+  claude-profile <name> --status
+  claude-profile --help
+
+Symlink form (profile name taken from the command basename):
+
+  ln -s claude-profile ~/.local/bin/account-1-claude
+  account-1-claude [--share-history] [claude args...]
+
+Environment:
+  CLAUDE_PROFILES_ROOT   default ~/.claude-profiles
+  CLAUDE_SHARED_DIR      default ~/.claude (skills/settings shared from main)
+  CLAUDE_BIN             force a specific claude binary/shim
+  CLAUDE_<NAME>_DIR      override one profile's directory (NAME uppercased,
+                         non-alnum -> _). Example: CLAUDE_ACCOUNT_1_DIR.
+
+Inside cmux, the launcher prefers the per-surface Claude shim so session
+hooks and cmux-claude-profile-dispatch keep this additional account on resume.
+EOF
+}
+
+die() { echo "claude-profile: $*" >&2; exit 1; }
+
+# Resolve profile name from argv0 symlink or first arg.
+resolve_invocation() {
+  local base
+  base="$(basename -- "$0")"
+  base="${base%.sh}"
+
+  case "$base" in
+    claude-profile|claude_profile)
+      [[ $# -ge 1 ]] || { usage; exit 1; }
+      case "$1" in
+        -h|--help) usage; exit 0 ;;
+      esac
+      PROFILE_NAME="$1"
+      shift
+      ;;
+    *-claude|*-Claude)
+      PROFILE_NAME="${base%-claude}"
+      PROFILE_NAME="${PROFILE_NAME%-Claude}"
+      ;;
+    claude-*|Claude-*)
+      PROFILE_NAME="${base#claude-}"
+      PROFILE_NAME="${PROFILE_NAME#Claude-}"
+      ;;
+    *)
+      # Basename is the profile (e.g. symlink named "work").
+      PROFILE_NAME="$base"
+      ;;
+  esac
+
+  # shellcheck disable=SC2034
+  REMAINING_ARGS=("$@")
+}
+
+env_override_for_profile() {
+  # CLAUDE_ACCOUNT_1_DIR from profile "account-1"; CLAUDE_ACCOUNT_2_DIR from "account-2"
+  local key
+  key="$(printf '%s' "$PROFILE_NAME" | tr '[:lower:]-' '[:upper:]_')"
+  key="CLAUDE_${key}_DIR"
+  printf '%s\n' "${!key-}"
+}
+
+resolve_claude() {
+  if [[ -n "${CLAUDE_BIN:-}" && -x "$CLAUDE_BIN" ]]; then
+    printf '%s\n' "$CLAUDE_BIN"
+    return 0
+  fi
+
+  # Inside cmux: prefer the per-surface shim / bundled wrapper so hooks fire and
+  # automation.claudeBinaryPath (profile dispatch) is used. The shim is often
+  # NOT first on PATH in an already-open shell.
+  if [[ -n "${CMUX_SURFACE_ID:-}" ]]; then
+    local candidate
+    for candidate in \
+      "${CMUX_CLAUDE_WRAPPER_SHIM:-}" \
+      "${TMPDIR:-/tmp}/cmux-cli-shims/${CMUX_SURFACE_ID}/claude" \
+      "/Applications/cmux.app/Contents/Resources/bin/cmux-claude-wrapper"
+    do
+      if [[ -n "$candidate" && -x "$candidate" ]]; then
+        printf '%s\n' "$candidate"
+        return 0
+      fi
+    done
+    if command -v type >/dev/null 2>&1; then
+      local p
+      p="$(type -P claude 2>/dev/null || true)"
+      if [[ -n "$p" && -x "$p" ]]; then
+        printf '%s\n' "$p"
+        return 0
+      fi
+    fi
+  fi
+
+  if [[ -x "$HOME/.local/bin/claude" ]]; then
+    printf '%s\n' "$HOME/.local/bin/claude"
+    return 0
+  fi
+  if command -v type >/dev/null 2>&1; then
+    local p
+    p="$(type -P claude 2>/dev/null || true)"
+    if [[ -n "$p" && -x "$p" ]]; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  fi
+  if command -v claude >/dev/null 2>&1; then
+    command -v claude
+    return 0
+  fi
+  die "could not find the claude binary"
+}
+
+link_item() {
+  local name="$1"
+  local src="$SOURCE_DIR/$name"
+  local dest="$PROFILE_DIR/$name"
+
+  if [[ ! -e "$src" && ! -L "$src" ]]; then
+    return 0
+  fi
+
+  if [[ -L "$dest" ]]; then
+    local target
+    target="$(readlink "$dest" 2>/dev/null || true)"
+    if [[ "$target" == "$src" ]]; then
+      return 0
+    fi
+    rm -f "$dest"
+  elif [[ -e "$dest" ]]; then
+    return 0
+  fi
+
+  ln -s "$src" "$dest"
+}
+
+unlink_managed_history_if_symlink() {
+  local name="$1"
+  local dest="$PROFILE_DIR/$name"
+  if [[ -L "$dest" ]]; then
+    rm -f "$dest"
+  fi
+}
+
+ensure_profile() {
+  # $1 = share_history: 1 | 0 | keep
+  # "keep" (the default, also used by status/setup) never creates or removes
+  # history links; only explicit --share-history / --no-share-history do.
+  local share_history="$1"
+  mkdir -p "$PROFILE_DIR"
+  chmod 700 "$PROFILE_DIR" 2>/dev/null || true
+
+  local item
+  for item in "${SHARED_ITEMS[@]}"; do
+    link_item "$item"
+  done
+
+  if [[ "$share_history" == "keep" ]]; then
+    :
+  elif [[ "$share_history" == "1" ]]; then
+    for item in "${HISTORY_ITEMS[@]}"; do
+      link_item "$item"
+    done
+  else
+    for item in "${HISTORY_ITEMS[@]}"; do
+      unlink_managed_history_if_symlink "$item"
+    done
+  fi
+
+  if [[ ! -f "$SETUP_MARKER" ]]; then
+    cat >"$SETUP_MARKER" <<EOF
+profile=$PROFILE_NAME
+created=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+source=$SOURCE_DIR
+EOF
+    chmod 600 "$SETUP_MARKER" 2>/dev/null || true
+  fi
+}
+
+is_logged_in() {
+  [[ -f "$PROFILE_DIR/.credentials.json" ]] && return 0
+  [[ -f "$PROFILE_DIR/.claude.json" ]] || return 1
+  grep -q 'oauthAccount\|claudeAiOauth\|hasCompletedOnboarding' \
+    "$PROFILE_DIR/.claude.json" 2>/dev/null
+}
+
+print_status() {
+  local claude_bin
+  claude_bin="$(resolve_claude)"
+  echo "Profile:     $PROFILE_NAME"
+  echo "Config dir:  $PROFILE_DIR"
+  echo "Shared from: $SOURCE_DIR"
+  echo "Claude bin:  $claude_bin"
+  echo "cmux surface:${CMUX_SURFACE_ID:- (not in cmux)}"
+  if is_logged_in; then
+    echo "Login:       credentials present (likely already logged in)"
+  else
+    echo "Login:       not set up yet — first launch will prompt"
+  fi
+  echo
+  echo "Shared links:"
+  local item
+  for item in "${SHARED_ITEMS[@]}" "${HISTORY_ITEMS[@]}"; do
+    local dest="$PROFILE_DIR/$item"
+    if [[ -L "$dest" ]]; then
+      echo "  $item -> $(readlink "$dest")"
+    elif [[ -e "$dest" ]]; then
+      echo "  $item (local)"
+    fi
+  done
+}
+
+main() {
+  local -a REMAINING_ARGS=()
+  resolve_invocation "$@"
+  set -- "${REMAINING_ARGS[@]+"${REMAINING_ARGS[@]}"}"
+
+  case "$PROFILE_NAME" in
+    ''|.*|*/*|*\\*)
+      die "invalid profile name: ${PROFILE_NAME:-<empty>}"
+      ;;
+  esac
+
+  local override
+  override="$(env_override_for_profile)"
+  if [[ -n "$override" ]]; then
+    PROFILE_DIR="$override"
+  else
+    PROFILE_DIR="$PROFILES_ROOT/$PROFILE_NAME"
+  fi
+  SETUP_MARKER="$PROFILE_DIR/.${PROFILE_NAME}-profile-ready"
+
+  # History mode is sticky: a bare launch keeps whatever share-history state
+  # exists on disk; only --share-history / --no-share-history change it.
+  local share_history=keep
+  local setup_only=0
+  local status_only=0
+  local -a claude_args=()
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      --share-history)
+        share_history=1
+        shift
+        ;;
+      --no-share-history)
+        share_history=0
+        shift
+        ;;
+      --setup-only)
+        setup_only=1
+        shift
+        ;;
+      --status)
+        status_only=1
+        shift
+        ;;
+      --)
+        shift
+        claude_args+=("$@")
+        break
+        ;;
+      *)
+        claude_args+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  if [[ "$status_only" == "1" || "$setup_only" == "1" ]]; then
+    ensure_profile keep
+  else
+    ensure_profile "$share_history"
+  fi
+
+  if [[ "$status_only" == "1" ]]; then
+    print_status
+    exit 0
+  fi
+
+  if [[ "$setup_only" == "1" ]]; then
+    echo "Profile ready at $PROFILE_DIR"
+    print_status
+    exit 0
+  fi
+
+  local claude_bin
+  claude_bin="$(resolve_claude)"
+
+  if ! is_logged_in; then
+    cat >&2 <<EOF
+┌─────────────────────────────────────────────────────────────┐
+│  Claude profile: $PROFILE_NAME
+│
+│  First run will prompt login for this additional account only.
+│  The main login (bare claude / ~/.claude) is left alone.
+│
+│  Profile: $PROFILE_DIR
+└─────────────────────────────────────────────────────────────┘
+EOF
+  else
+    echo "claude-profile: using isolated profile $PROFILE_DIR" >&2
+  fi
+
+  export CLAUDE_CONFIG_DIR="$PROFILE_DIR"
+  export CMUX_CLAUDE_PROFILE_NAME="$PROFILE_NAME"
+  export CMUX_PRESERVE_CLAUDE_AUTH_SELECTION_ENV=1
+  export CMUX_PRESERVE_CLAUDE_AUTH_SELECTION_ENV_KEYS="${CMUX_PRESERVE_CLAUDE_AUTH_SELECTION_ENV_KEYS:-CLAUDE_CONFIG_DIR}"
+
+  if ((${#claude_args[@]})); then
+    exec "$claude_bin" "${claude_args[@]}"
+  else
+    exec "$claude_bin"
+  fi
+}
+
+main "$@"

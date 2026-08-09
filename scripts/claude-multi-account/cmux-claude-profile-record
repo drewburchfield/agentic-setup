@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# cmux-claude-profile-record — Claude SessionStart/Stop hook
+#
+# When CLAUDE_CONFIG_DIR points at a profile under ~/.claude-profiles, record
+# session_id -> configDir so cmux-claude-profile-dispatch can restore the
+# correct account on cmux auto-resume.
+set -euo pipefail
+
+MAP_PATH="${CMUX_CLAUDE_PROFILE_MAP:-$HOME/.cmuxterm/claude-config-dir-by-session.json}"
+PROFILES_ROOT="${CLAUDE_PROFILES_ROOT:-$HOME/.claude-profiles}"
+
+# Always exit 0 so a hook failure never blocks Claude.
+python3 - "$MAP_PATH" "$PROFILES_ROOT" <<'PY' || exit 0
+import json, os, sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+map_path = Path(sys.argv[1])
+profiles_root = Path(sys.argv[2]).expanduser().resolve()
+config_dir = os.environ.get("CLAUDE_CONFIG_DIR", "").strip()
+if not config_dir:
+    raise SystemExit(0)
+
+try:
+    cfg = Path(config_dir).expanduser().resolve()
+except Exception:
+    raise SystemExit(0)
+
+try:
+    rel = cfg.relative_to(profiles_root)
+except ValueError:
+    raise SystemExit(0)
+if not rel.parts:
+    raise SystemExit(0)
+profile = rel.parts[0]
+
+raw = sys.stdin.read()
+session_id = ""
+if raw.strip():
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        payload = {}
+    if isinstance(payload, dict):
+        for key in ("session_id", "sessionId", "conversation_id", "conversationId"):
+            val = payload.get(key)
+            if isinstance(val, str) and val:
+                session_id = val
+                break
+        if not session_id:
+            for nest in ("session", "data", "input"):
+                sub = payload.get(nest)
+                if isinstance(sub, dict):
+                    for key in ("session_id", "sessionId", "id"):
+                        val = sub.get(key)
+                        if isinstance(val, str) and val:
+                            session_id = val
+                            break
+                if session_id:
+                    break
+
+if not session_id:
+    for key in ("CLAUDE_CODE_SESSION_ID", "CLAUDE_SESSION_ID"):
+        val = os.environ.get(key, "").strip()
+        if val:
+            session_id = val
+            break
+
+if not session_id:
+    raise SystemExit(0)
+
+map_path.parent.mkdir(parents=True, exist_ok=True)
+try:
+    data = json.loads(map_path.read_text()) if map_path.exists() else {}
+except Exception:
+    data = {}
+if not isinstance(data, dict):
+    data = {}
+
+data[session_id] = {
+    "configDir": str(cfg),
+    "profile": profile,
+    "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+    "source": "hook",
+}
+tmp = map_path.with_suffix(".tmp")
+tmp.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+tmp.replace(map_path)
+os.chmod(map_path, 0o600)
+PY
+
+exit 0

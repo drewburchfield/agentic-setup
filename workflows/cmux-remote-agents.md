@@ -16,6 +16,8 @@ cmux hooks setup        # installs integrations for every supported agent on PAT
 - Runtime session mappings live in `~/.cmuxterm/<agent>-hook-sessions.json`.
 - Hooks are guarded by `CMUX_SURFACE_ID`, so they no-op outside cmux (plain Ghostty, SSH, cron).
 
+**Multi-account Claude:** native resume re-runs `claude --resume <id>` and does not re-apply a custom launcher or `CLAUDE_CONFIG_DIR`. If you run a **main** seat plus **additional** account seats in parallel, use [cmux-claude-multi-account-resume.md](cmux-claude-multi-account-resume.md) so each tab stays sticky on quit/reopen (not account switching).
+
 cmux reads your existing Ghostty config (`~/.config/ghostty/config`) for fonts/theme/opacity. It loads the **first** config file it finds and stops, unlike Ghostty which merges both locations.
 
 > **Do not put cmux-only keys in the Ghostty config.** cmux's docs show `sidebar-font-size` and `surface-tab-bar-font-size` living in `~/.config/ghostty/config`, but Ghostty 1.3.2 rejects unknown fields and throws a config error on every launch. Worse, cmux reads those two keys from its own private file and ignores the Ghostty copy, so you get the error *and* no effect. Set them through cmux, which writes `~/Library/Application Support/com.cmuxterm.app/config.ghostty`:
